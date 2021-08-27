@@ -1,0 +1,54 @@
+[
+  {
+    "_id": {
+      "$oid": "61279d505d6692dc25726769"
+    },
+    "rooms": [],
+    "isOnline": false,
+    "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
+    "email": "user1@gmail.com",
+    "lastName": "1",
+    "firstName": "user",
+    "exitDate": 1629986128145,
+    "photoName": "user1.jpeg"
+  },
+  {
+    "_id": {
+      "$oid": "61279d505d6692dc25726760"
+    },
+    "rooms": [],
+    "isOnline": false,
+    "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
+    "email": "user2@gmail.com",
+    "lastName": "2",
+    "firstName": "user",
+    "exitDate": 1629986128145,
+    "photoName": "user2.jpeg"
+  },
+  {
+    "_id": {
+      "$oid": "61279d505d6692dc25726761"
+    },
+    "rooms": [],
+    "isOnline": false,
+    "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
+    "email": "user3@gmail.com",
+    "lastName": "3",
+    "firstName": "user",
+    "exitDate": 1629986128145,
+    "photoName": "user3.jpeg"
+  },
+  {
+    "_id": {
+      "$oid": "61279d505d6692dc25726762"
+    },
+    "rooms": [],
+    "isOnline": false,
+    "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
+    "email": "user4@gmail.com",
+    "lastName": "4",
+    "firstName": "user",
+    "exitDate": 1629986128145,
+    "photoName": "default.jpeg"
+  }
+]

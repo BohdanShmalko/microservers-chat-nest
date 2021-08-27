@@ -10,13 +10,14 @@ import {
 import { RegistrationService } from './registration.service';
 import { CheckEmailDto } from './dto/check-email.dto';
 import { UserInfoDto } from './dto/user-info.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MessageResponseDto } from '@shared/dto/message-response.dto';
 import { JwtAuthGuard } from '@shared/auth-shared/jwt-auth.guard';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
 import { Response } from 'express';
 
+@ApiTags('registration')
 @Controller('register')
 export class RegistrationController {
   constructor(private registrationService: RegistrationService) {}

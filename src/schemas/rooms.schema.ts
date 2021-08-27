@@ -9,6 +9,9 @@ export class RoomsModel {
   @Prop({ type: String, required: true })
   name: string;
 
+  @Prop({ type: String })
+  photo: string;
+
   @Prop({ type: [MessagesSchema], default: [] })
   messages: MessagesModel[];
 }
