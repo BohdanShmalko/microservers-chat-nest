@@ -1,25 +1,14 @@
 import { Controller, Get, HttpCode, Param } from '@nestjs/common';
-import { ChatApiService } from './chat-api.service';
+import { ChatListService } from './chat-list.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ListParamDto } from './dto/list-param.dto';
 import { ListResponseItemDto } from './dto/list-response-item.dto';
 
 @ApiTags('chat list')
 @Controller('chat-list')
-export class ChatApiController {
-  constructor(private chatApiService: ChatApiService) {}
+export class ChatListController {
+  constructor(private chatApiService: ChatListService) {}
 
-  // @ApiOperation({ summary: 'User info' })
-  // @ApiResponse({ status: 200, type: () => MessageResponseDto })
-  // @Get()
-  // @HttpCode(200)
-  // userInfo(
-  //   @Body() checkEmailDto: CheckEmailDto,
-  //   @Res() res: Response,
-  // ): Promise<void> {
-  //   return this.registrationService.checkEmail(checkEmailDto, res);
-  // }
-  //
   @ApiOperation({ summary: 'Get chat list' })
   @ApiResponse({ status: 200, type: () => ListResponseItemDto })
   @Get(':start/:howMany')
@@ -72,15 +61,4 @@ export class ChatApiController {
       },
     ];
   }
-  //
-  // @ApiOperation({ summary: 'Get chat list' })
-  // @ApiResponse({ status: 200, type: () => MessageResponseDto })
-  // @Post()
-  // @HttpCode(200)
-  // checkEmail(
-  //   @Body() checkEmailDto: CheckEmailDto,
-  //   @Res() res: Response,
-  // ): Promise<void> {
-  //   return this.registrationService.checkEmail(checkEmailDto, res);
-  // }
 }
