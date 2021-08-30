@@ -8,7 +8,7 @@ import { MembersModel } from '@schemas/members.schema';
 @Schema()
 export class MessagesModel {
   @Prop({ type: mongoose.Schema.Types.ObjectId })
-  readonly id?: string;
+  readonly _id?: string;
 
   @Prop({ type: String, required: true })
   text: string;

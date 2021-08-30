@@ -27,7 +27,7 @@ export class UsersModel {
   exitDate: number;
 
   @Prop({ type: String })
-  photoName: string;
+  photo: string;
 
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Members }])
   members: MembersModel[];

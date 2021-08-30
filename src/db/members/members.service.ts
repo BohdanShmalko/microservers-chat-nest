@@ -32,6 +32,10 @@ export class MembersService {
             model: ESchemasName.Members,
             populate: [
               {
+                path: 'user',
+                model: ESchemasName.Users,
+              },
+              {
                 path: 'messages',
                 model: ESchemasName.Messages,
               },
