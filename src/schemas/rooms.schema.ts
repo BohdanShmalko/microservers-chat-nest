@@ -6,7 +6,7 @@ import { MembersModel } from '@schemas/members.schema';
 @Schema()
 export class RoomsModel {
   @Prop({ type: mongoose.Schema.Types.ObjectId })
-  readonly id?: string;
+  readonly _id?: string;
 
   @Prop({ type: String })
   name: string;

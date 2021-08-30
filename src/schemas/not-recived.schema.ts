@@ -7,7 +7,7 @@ import { MessagesModel } from '@schemas/messages.schema';
 @Schema()
 export class NotRecivedModel {
   @Prop({ type: mongoose.Schema.Types.ObjectId })
-  readonly id?: string;
+  readonly _id?: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

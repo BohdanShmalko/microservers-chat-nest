@@ -38,6 +38,12 @@ export class MembersService {
               {
                 path: 'messages',
                 model: ESchemasName.Messages,
+                populate: [
+                  {
+                    path: 'file',
+                    model: ESchemasName.Files,
+                  },
+                ],
               },
             ],
           },

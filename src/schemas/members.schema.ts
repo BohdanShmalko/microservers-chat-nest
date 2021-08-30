@@ -9,7 +9,7 @@ import { NotRecivedModel } from '@schemas/not-recived.schema';
 @Schema()
 export class MembersModel {
   @Prop({ type: mongoose.Schema.Types.ObjectId })
-  readonly id?: string;
+  readonly _id?: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
   user: UsersModel;

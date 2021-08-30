@@ -51,11 +51,11 @@ export class RegistrationService {
     if (user)
       return res.status(400).send({ message: EHttpExceptionMessage.IsExist });
     const encPass = await this.authService.encrypt(userInfo.password);
-    const { id } = await this.usersService.createNew({
+    const { _id } = await this.usersService.createNew({
       ...userInfo,
       password: encPass,
     });
-    this.authService.generateToken({ id }, res);
+    this.authService.generateToken({ _id }, res);
 
     return res.status(400).send({ message: 'ok' });
   }

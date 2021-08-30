@@ -57,12 +57,6 @@ export class UsersService {
                     {
                       path: 'user',
                       model: ESchemasName.Users,
-                      populate: [
-                        {
-                          path: 'file',
-                          model: ESchemasName.Files,
-                        },
-                      ],
                     },
                   ],
                 },
