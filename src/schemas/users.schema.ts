@@ -1,7 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
+import { ESchemasName } from '@schemas/shemas-name.enum';
+import { MembersModel } from '@schemas/members.schema';
 
 @Schema()
 export class UsersModel {
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
   readonly id?: string;
 
   @Prop({ type: String, required: true })
@@ -25,19 +29,8 @@ export class UsersModel {
   @Prop({ type: String })
   photoName: string;
 
-  @Prop({ type: [String], required: true, default: [] })
-  rooms: string[];
-}
-
-export interface IUser extends Document {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  isOnline: boolean;
-  exitDate: number;
-  photoName: string;
-  rooms: string[];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Members }])
+  members: MembersModel[];
 }
 
 export const UsersSchema = SchemaFactory.createForClass(UsersModel);

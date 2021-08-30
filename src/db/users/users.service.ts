@@ -26,4 +26,57 @@ export class UsersService {
     });
     return newUser.save();
   }
+
+  public async getListById(
+    id: string,
+    start: number,
+    howMany: number,
+  ): Promise<UsersModel | null> {
+    return this.usersRepo
+      .findById(id, ['isOnline', 'firstName', 'lastName', 'photo'])
+      .populate([
+        {
+          path: 'members',
+          select: ['room'],
+          model: ESchemasName.Members,
+          options: {
+            skip: start,
+            limit: howMany,
+          },
+          populate: [
+            {
+              select: ['photo', 'name', 'members'],
+              path: 'room',
+              model: ESchemasName.Rooms,
+              populate: [
+                {
+                  path: 'members',
+                  model: ESchemasName.Members,
+                  match: { _id: { $ne: '102790505d6692dc25726762' } },
+                  populate: [
+                    {
+                      path: 'user',
+                      model: ESchemasName.Users,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              select: ['id'],
+              path: 'notRecived',
+              model: ESchemasName.NotRecived,
+            },
+            {
+              path: 'messages',
+              model: ESchemasName.Messages,
+              options: {
+                limit: 1,
+                sort: { created: -1 },
+              },
+            },
+          ],
+        },
+      ]);
+  }
 }

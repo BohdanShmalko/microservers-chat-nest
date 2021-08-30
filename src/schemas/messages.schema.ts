@@ -1,21 +1,39 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
+import { ESchemasName } from '@schemas/shemas-name.enum';
+import { FilesModel } from '@schemas/files.schema';
+import { NotRecivedModel } from '@schemas/not-recived.schema';
+import { MembersModel } from '@schemas/members.schema';
 
 @Schema()
 export class MessagesModel {
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  readonly id?: string;
+
   @Prop({ type: String, required: true })
   text: string;
 
-  @Prop({ type: String })
-  fileName: string;
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: ESchemasName.Files,
+    required: true,
+  })
+  file: FilesModel;
 
-  @Prop({ type: String, required: true })
-  senderId: string;
-
-  @Prop({ type: [String], required: true, default: [] })
-  receivedFor: string[];
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
+  member: MembersModel;
 
   @Prop({ type: Number, default: Date.now, required: true })
   created: number;
+
+  @Prop([
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: ESchemasName.NotRecived,
+      required: true,
+    },
+  ])
+  notRecived: NotRecivedModel[];
 }
 
 export const MessagesSchema = SchemaFactory.createForClass(MessagesModel);

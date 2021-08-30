@@ -5,13 +5,9 @@ import { ESchemasName } from '@schemas/shemas-name.enum';
 import { RoomsModel } from '@schemas/rooms.schema';
 
 @Injectable()
-export class RoomsService {
+export class NotRecivedService {
   constructor(
-    @InjectModel(ESchemasName.Rooms)
-    private roomsRepo: Model<RoomsModel>,
+    @InjectModel(ESchemasName.NotRecived)
+    notRecivedRepo: Model<RoomsModel>,
   ) {}
-
-  public async getByIds(ids: { id: string }[]): Promise<RoomsModel[] | null> {
-    return this.roomsRepo.find({ $or: ids });
-  }
 }

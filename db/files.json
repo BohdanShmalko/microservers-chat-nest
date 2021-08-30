@@ -1,0 +1,18 @@
+[
+  {
+    "_id": {
+      "$oid": "10079d505d6692dc25726762"
+    },
+    "name": "some.zip",
+    "size": 20000,
+    "messages": []
+  },
+  {
+    "_id": {
+      "$oid": "10179d505d6692dc25726762"
+    },
+    "name": "some2.zip",
+    "size": 20900,
+    "messages": []
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "_id": {
+      "$oid": "102790505d6692dc25726702"
+    },
+    "text": "some text 1",
+    "created": 1630312110388,
+    "memberId": "102793505d6692dc25726762",
+    "notRecived": []
+  },
+  {
+    "_id": {
+      "$oid": "102790505d6692dc25726712"
+    },
+    "text": "some text 2",
+    "created": 1630312110388,
+    "memberId": "102793505d6692dc25726762",
+    "notRecived": []
+  },
+  {
+    "_id": {
+      "$oid": "102790505d6692dc25726722"
+    },
+    "text": "some text 3",
+    "created": 1630312110388,
+    "memberId": "102793505d6692dc25726762",
+    "notRecived": ["102790505d6692dc25726022"]
+  },
+  {
+    "_id": {
+      "$oid": "102790505d6692dc25726732"
+    },
+    "text": "some text 31",
+    "created": 1630312110388,
+    "memberId": "102794505d6692dc25726762",
+    "notRecived": []
+  }
+]

@@ -1,19 +1,21 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { MessagesModel, MessagesSchema } from './messages.schema';
+import * as mongoose from 'mongoose';
+import { ESchemasName } from '@schemas/shemas-name.enum';
+import { MembersModel } from '@schemas/members.schema';
 
 @Schema()
 export class RoomsModel {
-  @Prop({ type: [String], required: true, default: [] })
-  users: string[];
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  readonly id?: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   name: string;
 
   @Prop({ type: String })
   photo: string;
 
-  @Prop({ type: [MessagesSchema], default: [] })
-  messages: MessagesModel[];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Members }])
+  members: MembersModel[];
 }
 
 export const RoomsSchema = SchemaFactory.createForClass(RoomsModel);

@@ -1,54 +1,54 @@
 [
   {
     "_id": {
-      "$oid": "61279d505d6692dc25726769"
+      "$oid": "61279d505d6692dc25726760"
     },
-    "rooms": [],
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user1@gmail.com",
     "lastName": "1",
     "firstName": "user",
     "exitDate": 1629986128145,
-    "photoName": "user1.jpeg"
+    "photo": "user1.jpeg",
+    "members": ["102790505d6692dc25726762"]
   },
   {
     "_id": {
-      "$oid": "61279d505d6692dc25726760"
+      "$oid": "61279d505d6692dc25726761"
     },
-    "rooms": [],
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user2@gmail.com",
     "lastName": "2",
     "firstName": "user",
     "exitDate": 1629986128145,
-    "photoName": "user2.jpeg"
+    "photo": "user2.jpeg",
+    "members": ["102791505d6692dc25726762"]
   },
   {
     "_id": {
-      "$oid": "61279d505d6692dc25726761"
+      "$oid": "61279d505d6692dc25726762"
     },
-    "rooms": [],
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user3@gmail.com",
     "lastName": "3",
     "firstName": "user",
     "exitDate": 1629986128145,
-    "photoName": "user3.jpeg"
+    "photo": "user3.jpeg",
+    "members": ["102792505d6692dc25726762", "102793505d6692dc25726762"]
   },
   {
     "_id": {
-      "$oid": "61279d505d6692dc25726762"
+      "$oid": "61279d505d6692dc25726763"
     },
-    "rooms": [],
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user4@gmail.com",
     "lastName": "4",
     "firstName": "user",
     "exitDate": 1629986128145,
-    "photoName": "default.jpeg"
+    "photo": "default.jpeg",
+    "members": ["102794505d6692dc25726762"]
   }
 ]
