@@ -28,9 +28,7 @@ export class ChatRoomService {
     );
     if (!data || !data.user)
       throw new HttpException(EHttpExceptionMessage.Unauthorized, 400);
-    const result = this.toDto.chatRoom(data);
-    if (!result.length) return null;
-    return result;
+    return this.toDto.chatRoom(data);
   }
 }
 
