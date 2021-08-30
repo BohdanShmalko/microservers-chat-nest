@@ -21,7 +21,7 @@ export class MembersService {
       {
         path: 'user',
         model: ESchemasName.Users,
-        match: { _id: userId },
+        match: { id: userId },
       },
       {
         path: 'room',

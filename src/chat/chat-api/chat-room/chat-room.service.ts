@@ -17,7 +17,7 @@ export class ChatRoomService {
     private toDto: ToDtoService,
   ) {}
 
-  async getMessages(param: MessageParamDto): Promise<MessageListDto[]> {
+  async getMessages(param: MessageParamDto): Promise<any> {
     const howMany: number = this.authSharedService.stringIdToInt(param.howMany);
     const start: number = this.authSharedService.stringIdToInt(param.start);
     const data = await this.membersService.checkIsMember(
@@ -28,7 +28,9 @@ export class ChatRoomService {
     );
     if (!data || !data.user)
       throw new HttpException(EHttpExceptionMessage.Unauthorized, 400);
-    return this.toDto.chatRoom(data);
+    const result = this.toDto.chatRoom(data);
+    if (!result.length) return null;
+    return result;
   }
 }
 
