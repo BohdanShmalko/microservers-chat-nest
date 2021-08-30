@@ -21,7 +21,9 @@ export class ChatListService {
     private toDto: ToDtoService,
   ) {}
 
-  public async getListData(param: ListParamDto): Promise<any> {
+  public async getListData(
+    param: ListParamDto,
+  ): Promise<ListResponseItemDto[]> {
     const howMany: number = this.authSharedService.stringIdToInt(param.howMany);
     const start: number = this.authSharedService.stringIdToInt(param.start);
     const getUser = await this.usersService.getListById(
@@ -29,48 +31,43 @@ export class ChatListService {
       start,
       howMany,
     );
-    return this.toDto.dbList(getUser);
+    return [
+      {
+        id: 'aqw',
+        name: 'Luy Robin',
+        isRoom: false,
+        photo: 'luy',
+        noChecked: 2,
+        message:
+          'Most of its text is made up from sections 1.10.32–3 of Cicero De finibus bonorum et malorum (On the Boundaries of Goods and Evils; finibus may also be translated as purposes).',
+        time: 1629471112000,
+        online: true,
+        status: '...writes',
+      },
+      {
+        id: 'aqe',
+        isRoom: false,
+        name: 'Jared Sunn',
+        photo: 'jared',
+        noChecked: 1,
+        message:
+          'Most of its text is made up from sections 1.10.32–3 of Cicero De finibus bonorum et malorum.',
+        time: 1629472112000,
+        online: true,
+        status: 'records voice message',
+      },
+      {
+        id: 'aqr',
+        isRoom: false,
+        name: 'Nika Jerrardo',
+        photo: 'nika',
+        message:
+          'Cicero famously orated against his political opponent Lucius Sergius Catilina.',
+        noChecked: 0,
+        time: 1629473112000,
+        online: false,
+        status: 'last online 5 hours ago',
+      },
+    ];
   }
-  //[
-  //       {
-  //         id: 'aqw',
-  //           'name': 'fkkfk',
-  //            isRoom: true,
-  //           photo: 'luy',
-  //           noChecked: 2, //noCh
-  //           message: //mess
-  //             'Most of its text is made up from sections 1.10.32–3 of Cicero De finibus bonorum et malorum (On the Boundaries of Goods and Evils; finibus may also be translated as purposes).',
-  //           time: 1629471112000, //mess
-  //           online: true,
-  //           status: '...writes', //hardcode
-  //       },
-  //       {
-  //         id: 'aqe',
-  //         data: {
-  //           firstName: 'Jared',
-  //           lastName: 'Sunn',
-  //           photo: 'jared',
-  //           noChecked: 1,
-  //           message:
-  //             'Most of its text is made up from sections 1.10.32–3 of Cicero De finibus bonorum et malorum.',
-  //           time: 1629472112000,
-  //           online: true,
-  //           status: 'records voice message',
-  //         },
-  //       },
-  //       {
-  //         id: 'aqr',
-  //         data: {
-  //           firstName: 'Nika',
-  //           lastName: 'Jerrardo',
-  //           photo: 'nika',
-  //           message:
-  //             'Cicero famously orated against his political opponent Lucius Sergius Catilina.',
-  //           noChecked: 0,
-  //           time: 1629473112000,
-  //           online: false,
-  //           status: 'last online 5 hours ago',
-  //         },
-  //       },
-  //     ];
 }
