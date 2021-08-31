@@ -5,6 +5,8 @@ import { UsersService } from '@db/users/users.service';
 import { MailService } from '@shared/mail/mail.service';
 import { CheckEmailDto } from '../registration/dto/check-email.dto';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
+import { MessageResponseDto } from '@shared/dto/message-response.dto';
+import { SecretDto } from './dto/secret.dto';
 
 @Injectable()
 export class LoginService {
@@ -14,15 +16,18 @@ export class LoginService {
     private authService: AuthSharedService,
   ) {}
 
-  public async checkUser(checkEmailDto: CheckEmailDto, res): Promise<void> {
+  public async checkUser(
+    loginDataDto: LoginDataDto,
+    res,
+  ): Promise<MessageResponseDto> {
     return;
   }
 
   public async checkSecretKey(
     req: JwtRequestType,
     res,
-    loginDataDto: LoginDataDto,
-  ): Promise<void> {
+    loginDataDto: SecretDto,
+  ): Promise<MessageResponseDto> {
     return;
   }
 }

@@ -12,8 +12,4 @@ export class LoginDataDto {
   @ApiProperty({ example: 'some secret', description: 'User password' })
   @IsString({ message: 'must be string' })
   readonly password: string;
-
-  @ApiProperty({ example: 'some secret', description: 'User secret key' })
-  @IsString({ message: 'must be string' })
-  readonly secretKey: string;
 }

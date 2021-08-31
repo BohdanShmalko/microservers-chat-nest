@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ListParamDto } from './dto/list-param.dto';
-import { ListResponseItemDto } from './dto/list-response-item.dto';
 import { RoomsService } from '@db/rooms/rooms.service';
 import { UsersService } from '@db/users/users.service';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';

@@ -23,14 +23,14 @@ export class RegistrationService {
     const secretKey: string = this.authService.generateSecretKey();
     await this.mailService.sendUserConfirmation(email, secretKey);
     const ectSecret = await this.authService.encrypt(secretKey);
-    this.authService.generateToken(
+    const token = this.authService.generateToken(
       {
         email,
         secretKey: ectSecret,
       },
       res,
     );
-    return res.status(400).send({ message: 'ok' });
+    return res.status(400).send({ token });
   }
 
   public async createNewUser(req, res, userInfo: UserInfoDto): Promise<void> {

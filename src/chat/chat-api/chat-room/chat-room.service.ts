@@ -1,8 +1,6 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
-import { UsersService } from '@db/users/users.service';
 import { MessageParamDto } from './dto/message-param.dto';
-import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
 import { ToDtoService } from '@shared/to-dto/to-dto.service';
 import { RoomsService } from '@db/rooms/rooms.service';
 
