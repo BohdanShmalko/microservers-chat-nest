@@ -2,6 +2,6 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": ["**/*.jpeg", "**/*.pem", "**/*.ejs", "**/*.pdf", "**/*.hbs", "**/*.html", "**/*.css"]
+    "assets": ["**/*.jpeg", "**/*.pem", "**/*.ejs", "**/*.pdf", "**/*.hbs", "**/*.html", "**/*.css", "**/*.rar"]
   }
 }

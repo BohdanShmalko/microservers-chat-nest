@@ -13,6 +13,7 @@ import { MembersModule } from '@db/members/members.module';
 import { MesagesModule } from '@db/mesages/mesages.module';
 import { NotRecivedModule } from '@db/not-recived/not-recived.module';
 import { ToDtoModule } from '@shared/to-dto/to-dto.module';
+import { FilesModule } from '@db/files/files.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ToDtoModule } from '@shared/to-dto/to-dto.module';
     MesagesModule,
     NotRecivedModule,
     ToDtoModule,
+    FilesModule,
   ],
   controllers: [AlertController, ChatListController, ChatRoomController],
   providers: [ChatGateway, AlertGateway, ChatListService, ChatRoomService],

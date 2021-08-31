@@ -6,37 +6,37 @@
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user1@gmail.com",
-    "lastName": "1",
-    "firstName": "user",
-    "exitDate": 1629986128145,
+    "lastName": "Smith",
+    "firstName": "Bob",
+    "exitDate": 1629986128140,
     "photo": "user1.jpeg",
-    "members": ["102790505d6692dc25726762"]
+    "members": ["002790505d6692dc25726762"]
   },
   {
     "_id": {
       "$oid": "61279d505d6692dc25726761"
     },
-    "isOnline": false,
+    "isOnline": true,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user2@gmail.com",
-    "lastName": "2",
-    "firstName": "user",
-    "exitDate": 1629986128145,
+    "lastName": "Morly",
+    "firstName": "Angela",
+    "exitDate": 1629986128141,
     "photo": "user2.jpeg",
-    "members": ["102791505d6692dc25726762"]
+    "members": ["102790505d6692dc25726762"]
   },
   {
     "_id": {
       "$oid": "61279d505d6692dc25726762"
     },
-    "isOnline": false,
+    "isOnline": true,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user3@gmail.com",
-    "lastName": "3",
-    "firstName": "user",
-    "exitDate": 1629986128145,
-    "photo": "user3.jpeg",
-    "members": ["102792505d6692dc25726762", "102793505d6692dc25726762"]
+    "lastName": "Ivaschenko",
+    "firstName": "Vlad",
+    "exitDate": 1629986128142,
+    "photo": "default.jpeg",
+    "members": ["202790505d6692dc25726762", "302790505d6692dc25726762"]
   },
   {
     "_id": {
@@ -45,10 +45,10 @@
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user4@gmail.com",
-    "lastName": "4",
-    "firstName": "user",
-    "exitDate": 1629986128145,
-    "photo": "default.jpeg",
-    "members": ["102794505d6692dc25726762"]
+    "lastName": "Керри",
+    "firstName": "Джим",
+    "exitDate": 1629986128143,
+    "photo": "user3.jpeg",
+    "members": ["402790505d6692dc25726762"]
   }
 ]

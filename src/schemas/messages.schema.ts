@@ -16,9 +16,8 @@ export class MessagesModel {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: ESchemasName.Files,
-    required: true,
   })
-  file: FilesModel;
+  file?: FilesModel;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
   member: MembersModel;
