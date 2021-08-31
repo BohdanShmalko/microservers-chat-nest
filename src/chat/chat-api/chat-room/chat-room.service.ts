@@ -1,22 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
 import { MessageParamDto } from './dto/message-param.dto';
 import { ToDtoService } from '@shared/to-dto/to-dto.service';
 import { RoomsService } from '@db/rooms/rooms.service';
+import { JwtRequestType } from '@shared/types/jwt-request.type';
+import { UsersService } from '@db/users/users.service';
+import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
 
 @Injectable()
 export class ChatRoomService {
   constructor(
     private authSharedService: AuthSharedService,
     private roomsService: RoomsService,
+    private usersService: UsersService,
     private toDto: ToDtoService,
   ) {}
 
-  async getMessages(param: MessageParamDto): Promise<any> {
+  async getMessages(req: JwtRequestType, param: MessageParamDto): Promise<any> {
+    const user = await this.usersService.getById(req.jwtData._id);
+    if (!user) throw new HttpException(EHttpExceptionMessage.Unauthorized, 400);
     const howMany: number = this.authSharedService.stringIdToInt(param.howMany);
     const start: number = this.authSharedService.stringIdToInt(param.start);
     const messages = await this.roomsService.getMessages(
-      '61279d505d6692dc25726762',
+      user._id,
       param.id,
       start,
       howMany,

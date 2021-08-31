@@ -1,9 +1,21 @@
-import { Controller, Get, HttpCode, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ChatRoomService } from './chat-room.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MessageParamDto } from './dto/message-param.dto';
 import { MessageListDto } from './dto/message-list.dto';
+import { Keys } from '@shared/auth-shared/middle-keys.decorator';
+import { JwtAuthGuard } from '@shared/auth-shared/jwt-auth.guard';
+import { JwtRequestType } from '@shared/types/jwt-request.type';
 
+@Keys('_id')
+@UseGuards(JwtAuthGuard)
 @ApiTags('chat room')
 @Controller('chat-room')
 export class ChatRoomController {
@@ -14,8 +26,9 @@ export class ChatRoomController {
   @Get(':id/:start/:howMany')
   @HttpCode(200)
   async getMessages(
+    @Req() req: JwtRequestType,
     @Param() params: MessageParamDto,
   ): Promise<MessageListDto[]> {
-    return this.chatApiService.getMessages(params);
+    return this.chatApiService.getMessages(req, params);
   }
 }

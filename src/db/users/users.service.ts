@@ -12,6 +12,10 @@ export class UsersService {
     private usersRepo: Model<UsersModel>,
   ) {}
 
+  public async getById(id: string): Promise<UsersModel | null> {
+    return this.usersRepo.findById(id);
+  }
+
   public async getByEmail(email: string): Promise<UsersModel | null> {
     return this.usersRepo.findOne({ email });
   }
