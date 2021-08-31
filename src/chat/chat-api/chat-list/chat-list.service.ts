@@ -4,7 +4,6 @@ import { ListResponseItemDto } from './dto/list-response-item.dto';
 import { RoomsService } from '@db/rooms/rooms.service';
 import { UsersService } from '@db/users/users.service';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
-import { MembersService } from '@db/members/members.service';
 import { NotRecivedService } from '@db/not-recived/not-recived.service';
 import { MesagesService } from '@db/mesages/mesages.service';
 import { ToDtoService } from '@shared/to-dto/to-dto.service';
@@ -15,22 +14,19 @@ export class ChatListService {
     private roomsService: RoomsService,
     private usersService: UsersService,
     private authSharedService: AuthSharedService,
-    private membersService: MembersService,
     private notRecivedService: NotRecivedService,
     private mesagesService: MesagesService,
     private toDto: ToDtoService,
   ) {}
 
-  public async getListData(
-    param: ListParamDto,
-  ): Promise<ListResponseItemDto[]> {
+  public async getListData(param: ListParamDto): Promise<any> {
     const howMany: number = this.authSharedService.stringIdToInt(param.howMany);
     const start: number = this.authSharedService.stringIdToInt(param.start);
-    const getUser = await this.usersService.getListById(
+    const rooms = await this.usersService.getList(
       '61279d505d6692dc25726762',
       start,
       howMany,
     );
-    return this.toDto.dbList(getUser);
+    return this.toDto.dbList(rooms);
   }
 }

@@ -27,7 +27,7 @@ export class UsersService {
     return newUser.save();
   }
 
-  public async getListById(
+  public async getList(
     id: string,
     start: number,
     howMany: number,
@@ -36,43 +36,21 @@ export class UsersService {
       .findById(id, ['isOnline', 'firstName', 'lastName', 'photo'])
       .populate([
         {
-          path: 'members',
-          select: ['room'],
-          model: ESchemasName.Members,
+          path: 'rooms',
+          model: ESchemasName.Rooms,
           options: {
             skip: start,
             limit: howMany,
           },
           populate: [
             {
-              select: ['photo', 'name', 'members'],
-              path: 'room',
-              model: ESchemasName.Rooms,
-              populate: [
-                {
-                  path: 'members',
-                  model: ESchemasName.Members,
-                  match: { _id: { $ne: '102790505d6692dc25726762' } },
-                  populate: [
-                    {
-                      path: 'user',
-                      model: ESchemasName.Users,
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              select: ['id'],
-              path: 'notRecived',
-              model: ESchemasName.NotRecived,
+              path: 'users',
+              model: ESchemasName.Users,
+              match: { _id: { $ne: id } },
             },
             {
               path: 'messages',
               model: ESchemasName.Messages,
-              options: {
-                limit: 1,
-              },
             },
           ],
         },

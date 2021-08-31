@@ -1,7 +1,6 @@
 import { Controller, Get, HttpCode, Param } from '@nestjs/common';
 import { ChatRoomService } from './chat-room.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ListParamDto } from '../chat-list/dto/list-param.dto';
 import { MessageParamDto } from './dto/message-param.dto';
 import { MessageListDto } from './dto/message-list.dto';
 

@@ -5,6 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
+import { DbModule } from '@db/db.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ChatModule } from './chat/chat.module';
     MongooseModule.forRoot(process.env.MONGO_URL),
     AuthModule,
     ChatModule,
+    DbModule,
   ],
 })
 export class AppModule {}

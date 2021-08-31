@@ -3,7 +3,8 @@ import * as mongoose from 'mongoose';
 import { ESchemasName } from '@schemas/shemas-name.enum';
 import { FilesModel } from '@schemas/files.schema';
 import { NotRecivedModel } from '@schemas/not-recived.schema';
-import { MembersModel } from '@schemas/members.schema';
+import { UsersModel } from '@schemas/users.schema';
+import { RoomsModel } from '@schemas/rooms.schema';
 
 @Schema()
 export class MessagesModel {
@@ -14,16 +15,18 @@ export class MessagesModel {
   text: string;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: ESchemasName.Files,
+    type: FilesModel,
   })
   file?: FilesModel;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
-  member: MembersModel;
-
   @Prop({ type: Number, default: Date.now, required: true })
   created: number;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
+  user: UsersModel;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
+  room: RoomsModel;
 
   @Prop([
     {

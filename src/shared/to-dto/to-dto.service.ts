@@ -1,69 +1,72 @@
 import { Injectable } from '@nestjs/common';
-import { UsersModel } from '@schemas/users.schema';
-import { ListResponseItemDto } from '../../chat/chat-api/chat-list/dto/list-response-item.dto';
-import { MembersModel } from '@schemas/members.schema';
 import { MessageListDto } from '../../chat/chat-api/chat-room/dto/message-list.dto';
 import {
   EFileTypes,
   EMessageStatus,
   EMessageTypes,
 } from '@shared/to-dto/dto.enum';
+import { UsersModel } from '@schemas/users.schema';
+import { ListResponseItemDto } from '../../chat/chat-api/chat-list/dto/list-response-item.dto';
+import { RoomsModel } from '@schemas/rooms.schema';
 
 @Injectable()
 export class ToDtoService {
   public dbList(list: UsersModel): ListResponseItemDto[] {
     if (!list) return [];
-    return list.members.map((member) => {
-      let members;
-      if (!member.room.name) {
-        members = member.room.members.filter((item) => {
-          return JSON.stringify(item._id) !== JSON.stringify(member._id);
-        });
-      }
-
-      const photo = member.room.photo || 'default.jpeg';
+    return list.rooms.map((room) => {
+      const lastMessage = room.messages[room.messages.length - 1];
       return {
-        id: member._id,
-        name: member.room.name
-          ? member.room.name
-          : `${members[0].user.firstName} ${members[0].user.lastName}`,
-        message: member.messages.length ? member.messages[0].text : '',
-        noChecked: member.notRecived.length,
-        online: member.room.name ? true : members[0].user.isOnline,
-        photo: 'http://localhost:3000/images/' + photo,
-        status: '...write',
-        time: member.messages.length ? member.messages[0].created : 0,
-        isRoom: !!member.room.name,
+        id: room._id,
+        isRoom: !!room.name,
+        time: lastMessage ? lastMessage.created : 0,
+        status: EMessageStatus.Dispatch,
+        photo: room.photo ? room.photo : room.users[0].photo,
+        online: room.users.some((user) => user.isOnline),
+        noChecked: 0,
+        message: lastMessage.text,
+        name: room.name
+          ? room.name
+          : room.users[0].firstName + ' ' + room.users[0].lastName,
       };
     });
   }
 
-  public chatRoom(data: MembersModel): MessageListDto[] {
-    return this.matrixToArray<MessageListDto>(
-      data.room.members.map((member) => {
-        return member.messages.map((message) => {
-          return {
-            id: message._id,
-            date: message.created,
-            photo: 'http://localhost:3000/images/' + member.user.photo,
-            file: message.file
-              ? {
-                  href: 'http://localhost:3000/files/' + message.file.name,
-                  name: message.file.name,
-                  size: message.file.size,
-                  type: this.fileToType(message.file.name),
-                }
-              : undefined,
-            status: EMessageStatus.Dispatch,
-            text: message.text,
-            type:
-              JSON.stringify(member._id) === JSON.stringify(data._id)
-                ? EMessageTypes.User
-                : EMessageTypes.Member,
-          };
-        });
-      }),
-    );
+  //{
+  // id: "000790505d6692dc25726762",
+  // date: 1630312110380,
+  // photo: "http://localhost:3000/images/user1.jpeg",
+  // file: {
+  // href: "http://localhost:3000/files/some.rar",
+  // name: "some.rar",
+  // size: 20000,
+  // type: "image"
+  // },
+  // status: "dispatch",
+  // text: "",
+  // type: "member"
+  // },
+
+  public chatRoom(room: RoomsModel): MessageListDto[] {
+    return room.messages.map((message) => {
+      const isMy =
+        JSON.stringify(room.users[0]._id) === JSON.stringify(message.user);
+      return {
+        id: message._id,
+        type: isMy ? EMessageTypes.User : EMessageTypes.Member,
+        text: message.text,
+        status: EMessageStatus.Read,
+        file: message.file
+          ? {
+              type: this.fileToType(message.file.name),
+              size: message.file.size,
+              name: message.file.name,
+              href: 'http://localhost:3000/files/' + message.file.name,
+            }
+          : undefined,
+        photo: message.user.photo,
+        date: message.created,
+      };
+    });
   }
 
   private matrixToArray<T>(matrix: T[][]): T[] {

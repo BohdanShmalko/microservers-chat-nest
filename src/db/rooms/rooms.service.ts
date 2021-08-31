@@ -14,4 +14,34 @@ export class RoomsService {
   public async getByIds(ids: { id: string }[]): Promise<RoomsModel[] | null> {
     return this.roomsRepo.find({ $or: ids });
   }
+
+  public async getMessages(
+    userId: string,
+    roomId: string,
+    start: number,
+    howMany: number,
+  ): Promise<RoomsModel | null> {
+    return this.roomsRepo.findById(roomId).populate([
+      {
+        path: 'users',
+        model: ESchemasName.Users,
+        match: { _id: userId },
+      },
+      {
+        path: 'messages',
+        model: ESchemasName.Messages,
+        options: {
+          skip: start,
+          limit: howMany,
+        },
+        populate: [
+          {
+            path: 'user',
+            model: ESchemasName.Users,
+            select: ['photo'],
+          },
+        ],
+      },
+    ]);
+  }
 }
