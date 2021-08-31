@@ -27,11 +27,8 @@ export class RegistrationController {
   @ApiResponse({ status: 200, type: () => TokenDto })
   @Post()
   @HttpCode(200)
-  checkEmail(
-    @Body() checkEmailDto: CheckEmailDto,
-    @Res() res: Response,
-  ): Promise<void> {
-    return this.registrationService.checkEmail(checkEmailDto, res);
+  checkEmail(@Body() checkEmailDto: CheckEmailDto): Promise<TokenDto> {
+    return this.registrationService.checkEmail(checkEmailDto);
   }
 
   @ApiOperation({ summary: 'Create new user' })
@@ -42,9 +39,8 @@ export class RegistrationController {
   @HttpCode(200)
   createNewUser(
     @Req() req: JwtRequestType,
-    @Res() res: Response,
     @Body() userInfo: UserInfoDto,
-  ): Promise<void> {
-    return this.registrationService.createNewUser(req, res, userInfo);
+  ): Promise<TokenDto> {
+    return this.registrationService.createNewUser(req, userInfo);
   }
 }

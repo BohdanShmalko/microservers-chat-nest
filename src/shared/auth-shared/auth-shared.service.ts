@@ -24,7 +24,7 @@ export class AuthSharedService {
     return bcrypt.hash(value, 5);
   }
 
-  public generateToken(payload, res): string {
+  public generateToken(payload): string {
     const token = this.jwtService.sign(payload);
     //res.cookie('token', token);
     return token;
