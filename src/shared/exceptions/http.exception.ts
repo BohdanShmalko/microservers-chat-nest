@@ -4,4 +4,5 @@ export enum EHttpExceptionMessage {
   InvalidSecret = 'Invalid secret code',
   InvalidEmail = 'Invalid email',
   IdType = 'Id must be an integer',
+  InvalidEmailOrPassword = 'Invalid login or password',
 }
