@@ -15,12 +15,13 @@ export class ToDtoService {
     if (!list) return [];
     return list.rooms.map((room) => {
       const lastMessage = room.messages[room.messages.length - 1];
+      const photo = room.photo || room.users[0].photo;
       return {
         id: room._id,
         isRoom: !!room.name,
         time: lastMessage ? lastMessage.created : 0,
         status: EMessageStatus.Dispatch,
-        photo: room.photo ? room.photo : room.users[0].photo,
+        photo: 'http://localhost:3000/images/' + photo,
         online: room.users.some((user) => user.isOnline),
         noChecked: 0,
         message: lastMessage.text,
@@ -49,7 +50,7 @@ export class ToDtoService {
   public chatRoom(room: RoomsModel): MessageListDto[] {
     return room.messages.map((message) => {
       const isMy =
-        JSON.stringify(room.users[0]._id) === JSON.stringify(message.user);
+        JSON.stringify(room.users[0]._id) === JSON.stringify(message.user._id);
       return {
         id: message._id,
         type: isMy ? EMessageTypes.User : EMessageTypes.Member,
@@ -67,16 +68,6 @@ export class ToDtoService {
         date: message.created,
       };
     });
-  }
-
-  private matrixToArray<T>(matrix: T[][]): T[] {
-    const result = [];
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        result.push(matrix[i][j]);
-      }
-    }
-    return result;
   }
 
   private fileToType(fileName: string): string {
