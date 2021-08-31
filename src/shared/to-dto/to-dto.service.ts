@@ -63,7 +63,7 @@ export class ToDtoService {
               href: 'http://localhost:3000/files/' + message.file.name,
             }
           : undefined,
-        photo: message.user.photo,
+        photo: 'http://localhost:3000/images/' + message.user.photo,
         date: message.created,
       };
     });

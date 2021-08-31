@@ -87,11 +87,11 @@
     "_id": {
       "$oid": "008790505d6692dc25726762"
     },
-    "text": "01279d505d6692dc25726762",
+    "text": "",
     "created": 1630312110388,
     "user": "61279d505d6692dc25726762",
     "room": "",
-    "notRecived": [],
+    "notRecived": ["01279d505d6692dc25726762"],
     "file": {
       "name": "another.rar",
       "size": 20900
