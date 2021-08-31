@@ -15,8 +15,12 @@ export class ToDtoService {
     if (!list) return [];
     return list.members.map((member) => {
       let members;
-      if (!member.room.name)
-        members = member.room.members.filter((item) => item._id !== member._id);
+      if (!member.room.name) {
+        members = member.room.members.filter((item) => {
+          return JSON.stringify(item._id) !== JSON.stringify(member._id);
+        });
+      }
+
       const photo = member.room.photo || 'default.jpeg';
       return {
         id: member._id,
@@ -53,7 +57,7 @@ export class ToDtoService {
             status: EMessageStatus.Dispatch,
             text: message.text,
             type:
-              member._id === data._id
+              JSON.stringify(member._id) === JSON.stringify(data._id)
                 ? EMessageTypes.User
                 : EMessageTypes.Member,
           };

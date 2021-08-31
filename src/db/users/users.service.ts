@@ -72,7 +72,6 @@ export class UsersService {
               model: ESchemasName.Messages,
               options: {
                 limit: 1,
-                sort: { created: -1 },
               },
             },
           ],
