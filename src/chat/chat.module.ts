@@ -1,7 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ChatGateway } from './chat/chat.gateway';
-import { AlertGateway } from './alert/alert.gateway';
-import { AlertController } from './alert/alert.controller';
 import { AuthSharedModule } from '@shared/auth-shared/auth-shared.module';
 import { ChatListService } from './chat-api/chat-list/chat-list.service';
 import { ChatListController } from './chat-api/chat-list/chat-list.controller';
@@ -12,6 +9,7 @@ import { UsersModule } from '@db/users/users.module';
 import { MesagesModule } from '@db/mesages/mesages.module';
 import { NotRecivedModule } from '@db/not-recived/not-recived.module';
 import { ToDtoModule } from '@shared/to-dto/to-dto.module';
+import { StudyChatModule } from './chat/study-chat.module';
 
 @Module({
   imports: [
@@ -21,8 +19,9 @@ import { ToDtoModule } from '@shared/to-dto/to-dto.module';
     MesagesModule,
     NotRecivedModule,
     ToDtoModule,
+    StudyChatModule,
   ],
-  controllers: [AlertController, ChatListController, ChatRoomController],
-  providers: [ChatGateway, AlertGateway, ChatListService, ChatRoomService],
+  controllers: [ChatListController, ChatRoomController],
+  providers: [ChatListService, ChatRoomService],
 })
 export class ChatModule {}

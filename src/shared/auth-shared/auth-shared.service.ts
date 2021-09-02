@@ -9,9 +9,9 @@ export class AuthSharedService {
   constructor(private jwtService: JwtService) {}
 
   public async getJwtData(
-    req: Request,
+    cookies,
   ): Promise<{ id: number; secretKey?: string }> {
-    const { token } = req.cookies;
+    const { token } = cookies;
     if (!token) throw '';
     return this.jwtService.verify(token);
   }
@@ -41,5 +41,11 @@ export class AuthSharedService {
     if (isNaN(id) || !Number.isInteger(id))
       throw new HttpException(EHttpExceptionMessage.IdType, 400);
     return id;
+  }
+
+  public diff(a1, a2) {
+    return a1
+      .filter((i) => !a2.includes(i))
+      .concat(a2.filter((i) => !a1.includes(i)));
   }
 }
