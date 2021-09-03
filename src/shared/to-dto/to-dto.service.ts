@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+
 import { MessageListDto } from '../../chat/chat-api/chat-room/dto/message-list.dto';
 import {
   EFileTypes,
@@ -50,7 +51,7 @@ export class ToDtoService {
     });
   }
 
-  private fileToType(fileName: string): string {
+  private static fileToType(fileName: string): string {
     const format = fileName.split('.')[1];
     if (!format) return EFileTypes.Any;
     const formats = {

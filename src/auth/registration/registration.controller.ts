@@ -4,18 +4,16 @@ import {
   HttpCode,
   Post,
   Req,
-  Res,
   UseGuards,
 } from '@nestjs/common';
+
 import { RegistrationService } from './registration.service';
 import { CheckEmailDto } from './dto/check-email.dto';
 import { UserInfoDto } from './dto/user-info.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { MessageResponseDto } from '@shared/dto/message-response.dto';
 import { JwtAuthGuard } from '@shared/auth-shared/jwt-auth.guard';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
-import { Response } from 'express';
 import { TokenDto } from './dto/token.dto';
 
 @ApiTags('registration')

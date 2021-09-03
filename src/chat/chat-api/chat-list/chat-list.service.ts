@@ -1,4 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
+
 import { ListParamDto } from './dto/list-param.dto';
 import { RoomsService } from '@db/rooms/rooms.service';
 import { UsersService } from '@db/users/users.service';

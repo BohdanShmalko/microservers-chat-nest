@@ -1,19 +1,16 @@
-import { LoginService } from './login.service';
-import { LoginDataDto } from './dto/login-data.dto';
-import { JwtRequestType } from '@shared/types/jwt-request.type';
-import { CheckEmailDto } from '../registration/dto/check-email.dto';
-import { Response } from 'express';
 import {
   Body,
   Controller,
   HttpCode,
   Post,
   Req,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { MessageResponseDto } from '@shared/dto/message-response.dto';
+
+import { LoginService } from './login.service';
+import { LoginDataDto } from './dto/login-data.dto';
+import { JwtRequestType } from '@shared/types/jwt-request.type';
 import { SecretDto } from './dto/secret.dto';
 import { TokenDto } from '../registration/dto/token.dto';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';

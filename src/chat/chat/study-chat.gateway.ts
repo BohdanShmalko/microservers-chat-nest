@@ -8,13 +8,15 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { UseGuards } from '@nestjs/common';
-import { StudyChatService } from './study-chat.service';
 import { Server, Socket } from 'socket.io';
+import { ApiTags } from '@nestjs/swagger';
+
+import { StudyChatService } from './study-chat.service';
 import { RoomMessageDto } from './dto/room-message.dto';
 import { StudyChatGuard } from './study-chat.guard';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 import { JwtSocketType } from '@shared/types/jwt-socket.type';
-import { ApiTags } from '@nestjs/swagger';
+
 import { CStudyChatConfig } from './study-chat.config';
 
 @Keys('_id')

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNumber, IsString } from 'class-validator';
+
 import { MessageFileDto } from '../../chat-api/chat-room/dto/message-file.dto';
 
 export class MessageResponseDto {

@@ -6,6 +6,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { Logger, UseGuards } from '@nestjs/common';
+
 import { JwtAuthGuard } from '@shared/auth-shared/jwt-auth.guard';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 
@@ -17,7 +18,7 @@ export class ChatGateway implements OnGatewayInit {
 
   private logger: Logger = new Logger('ChatGateway');
 
-  afterInit(server: any) {
+  afterInit() {
     this.logger.log('Initialized!');
   }
 

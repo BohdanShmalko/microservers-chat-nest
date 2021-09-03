@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { AuthSharedModule } from '@shared/auth-shared/auth-shared.module';
 import { ChatListService } from './chat-api/chat-list/chat-list.service';
 import { ChatListController } from './chat-api/chat-list/chat-list.controller';

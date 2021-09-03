@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+
 import { MIDDLE_KEYS } from '@shared/auth-shared/middle-keys.decorator';
 import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';

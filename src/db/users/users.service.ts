@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ESchemasName } from '@schemas/shemas-name.enum';
 import { Model } from 'mongoose';
+
+import { ESchemasName } from '@schemas/shemas-name.enum';
 import { UsersModel } from '@schemas/users.schema';
 import { UserInfoDto } from '../../auth/registration/dto/user-info.dto';
-import { RoomsModel } from '@schemas/rooms.schema';
 
 @Injectable()
 export class UsersService {

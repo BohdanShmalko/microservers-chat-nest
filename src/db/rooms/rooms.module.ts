@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { ESchemasName } from '@schemas/shemas-name.enum';
 import { RoomsSchema } from '@schemas/rooms.schema';
 import { RoomsService } from './rooms.service';

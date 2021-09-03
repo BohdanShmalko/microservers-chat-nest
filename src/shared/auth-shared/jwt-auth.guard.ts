@@ -4,11 +4,11 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+
 import { EHttpExceptionMessage } from '../exceptions/http.exception';
 import { AuthSharedService } from './auth-shared.service';
 import { MIDDLE_KEYS } from './middle-keys.decorator';
-import { Reflector } from '@nestjs/core';
-import { Socket } from 'socket.io';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {

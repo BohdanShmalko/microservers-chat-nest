@@ -1,4 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
+
 import { CheckEmailDto } from './dto/check-email.dto';
 import { UserInfoDto } from './dto/user-info.dto';
 import { UsersService } from '@db/users/users.service';

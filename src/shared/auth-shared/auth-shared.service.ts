@@ -1,7 +1,7 @@
 import { JwtService } from '@nestjs/jwt';
 import { HttpException, Injectable } from '@nestjs/common';
-import { Request } from 'express';
 import * as bcrypt from 'bcryptjs';
+
 import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
 import { JwtSocketType } from '@shared/types/jwt-socket.type';
 import { CStudyChatConfig } from '../../chat/chat/study-chat.config';
@@ -27,9 +27,7 @@ export class AuthSharedService {
   }
 
   public generateToken(payload): string {
-    const token = this.jwtService.sign(payload);
-    //res.cookie('token', token);
-    return token;
+    return this.jwtService.sign(payload);
   }
 
   public generateSecretKey(SECRET_LENGTH = 6): string {

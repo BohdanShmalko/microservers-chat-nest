@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { AuthSharedModule } from '@shared/auth-shared/auth-shared.module';
 import { UsersModule } from '@db/users/users.module';
 import { MailModule } from '@shared/mail/mail.module';

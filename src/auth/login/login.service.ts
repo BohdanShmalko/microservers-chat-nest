@@ -1,4 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
+
 import { LoginDataDto } from './dto/login-data.dto';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
 import { UsersService } from '@db/users/users.service';

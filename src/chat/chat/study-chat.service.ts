@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
+
 import { RoomMessageDto } from './dto/room-message.dto';
 import { JwtSocketType } from '@shared/types/jwt-socket.type';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
@@ -126,7 +127,7 @@ export class StudyChatService {
     }
   }
 
-  public async disconnect(client: Socket): Promise<void> {
+  public async disconnect(): Promise<void> {
     this.logger.log('Client disconnected');
   }
 }

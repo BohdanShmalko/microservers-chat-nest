@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+
 import { ESchemasName } from '@schemas/shemas-name.enum';
 import { MessagesModel } from '@schemas/messages.schema';
 import { UsersModel } from '@schemas/users.schema';

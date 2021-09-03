@@ -6,8 +6,9 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ChatRoomService } from './chat-room.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
+import { ChatRoomService } from './chat-room.service';
 import { MessageParamDto } from './dto/message-param.dto';
 import { MessageListDto } from './dto/message-list.dto';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';
