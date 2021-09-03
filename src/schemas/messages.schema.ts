@@ -2,13 +2,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { ESchemasName } from '@schemas/shemas-name.enum';
 import { FilesModel } from '@schemas/files.schema';
-import { NotRecivedModel } from '@schemas/not-recived.schema';
 import { UsersModel } from '@schemas/users.schema';
 import { RoomsModel } from '@schemas/rooms.schema';
 
 @Schema()
 export class MessagesModel {
-  @Prop({ type: mongoose.Schema.Types.ObjectId })
   readonly _id?: string;
 
   @Prop({ type: String, required: true })
@@ -31,11 +29,11 @@ export class MessagesModel {
   @Prop([
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: ESchemasName.NotRecived,
+      ref: ESchemasName.Users,
       required: true,
     },
   ])
-  notRecived: NotRecivedModel[];
+  notRecived: UsersModel[];
 }
 
 export const MessagesSchema = SchemaFactory.createForClass(MessagesModel);

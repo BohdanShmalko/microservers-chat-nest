@@ -7,7 +7,6 @@ import { ChatRoomService } from './chat-api/chat-room/chat-room.service';
 import { RoomsModule } from '@db/rooms/rooms.module';
 import { UsersModule } from '@db/users/users.module';
 import { MesagesModule } from '@db/mesages/mesages.module';
-import { NotRecivedModule } from '@db/not-recived/not-recived.module';
 import { ToDtoModule } from '@shared/to-dto/to-dto.module';
 import { StudyChatModule } from './chat/study-chat.module';
 
@@ -17,7 +16,6 @@ import { StudyChatModule } from './chat/study-chat.module';
     RoomsModule,
     UsersModule,
     MesagesModule,
-    NotRecivedModule,
     ToDtoModule,
     StudyChatModule,
   ],

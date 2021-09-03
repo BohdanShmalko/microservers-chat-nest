@@ -31,23 +31,19 @@ export class StudyChatGateway
   @WebSocketServer()
   public wss: Server;
 
-  private logger: Logger = new Logger('Chat Gateway');
-
-  @SubscribeMessage('enterRoom')
+  @SubscribeMessage('sendMessage')
   roomMessage(
     @ConnectedSocket() client: JwtSocketType,
     @MessageBody() message: RoomMessageDto,
-  ): Promise<WsResponse<MessageListDto>> {
-    return this.studyChatService.roomMessage(client, message);
+  ): Promise<void> {
+    return this.studyChatService.roomMessage(this.wss, client, message);
   }
 
-  handleConnection(
-    @ConnectedSocket() client: Socket, //: Promise<WsResponse<MessageResponseDto>> {
-  ) {
-    client.emit('connection', 'success');
+  handleConnection(@ConnectedSocket() client: JwtSocketType): Promise<void> {
+    return this.studyChatService.connect(client);
   }
 
-  handleDisconnect(@ConnectedSocket() client: Socket): void {
-    this.logger.log('client disconnected');
+  handleDisconnect(@ConnectedSocket() client: Socket): Promise<void> {
+    return this.studyChatService.disconnect(client);
   }
 }

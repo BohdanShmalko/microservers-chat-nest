@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { ESchemasName } from '@schemas/shemas-name.enum';
 import { MessagesModel } from '@schemas/messages.schema';
-import { NotRecivedModel } from '@schemas/not-recived.schema';
 import { RoomsModel } from '@schemas/rooms.schema';
 
 @Schema()
@@ -33,10 +32,8 @@ export class UsersModel {
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Messages }])
   messages: MessagesModel[];
 
-  @Prop([
-    { type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.NotRecived },
-  ])
-  notRecived: NotRecivedModel[];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Messages }])
+  notRecived: MessagesModel[];
 
   @Prop([
     {

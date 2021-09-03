@@ -3,7 +3,6 @@ import { ListParamDto } from './dto/list-param.dto';
 import { RoomsService } from '@db/rooms/rooms.service';
 import { UsersService } from '@db/users/users.service';
 import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
-import { NotRecivedService } from '@db/not-recived/not-recived.service';
 import { MesagesService } from '@db/mesages/mesages.service';
 import { ToDtoService } from '@shared/to-dto/to-dto.service';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
@@ -15,7 +14,6 @@ export class ChatListService {
     private roomsService: RoomsService,
     private usersService: UsersService,
     private authSharedService: AuthSharedService,
-    private notRecivedService: NotRecivedService,
     private mesagesService: MesagesService,
     private toDto: ToDtoService,
   ) {}

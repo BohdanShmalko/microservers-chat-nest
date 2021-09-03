@@ -21,5 +21,9 @@
   wss.on('connection', data => console.log(data));
   wss.on('error', data => console.log(data));
   wss.emit('chatToServer', 'test')
+  wss.on('room', data => console.log(data));
+  setTimeout(() => {
+wss.emit('sendMessage', {room: '00279d505d6692dc25726762', message: 'some message 1'})
+  }, 2000)
 </script>
 </html>

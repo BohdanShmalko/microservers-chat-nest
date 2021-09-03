@@ -10,7 +10,7 @@ export class AuthSharedService {
 
   public async getJwtData(
     cookies,
-  ): Promise<{ id: number; secretKey?: string }> {
+  ): Promise<{ _id: string; secretKey?: string }> {
     const { token } = cookies;
     if (!token) throw '';
     return this.jwtService.verify(token);

@@ -41,7 +41,7 @@
     "exitDate": 1629986128142,
     "photo": "default.jpeg",
     "messages": ["003790505d6692dc25726762", "004790505d6692dc25726762", "006790505d6692dc25726762", "008790505d6692dc25726762"],
-    "notRecived": ["000090505d6692dc25726762", "000190505d6692dc25726762", "000290505d6692dc25726762"],
+    "notRecived": ["001790505d6692dc25726762", "005790505d6692dc25726762", "007690505d6692dc25726762"],
     "rooms": ["00279d505d6692dc25726762", "01279d505d6692dc25726762"]
   },
   {
@@ -58,5 +58,20 @@
     "messages": ["005790505d6692dc25726762", "007790505d6692dc25726762"],
     "notRecived": [],
     "rooms": ["01279d505d6692dc25726762"]
+  },
+  {
+    "_id": {
+      "$oid": "6131c795d772205ae71e259e"
+    },
+    "rooms": ["00279d505d6692dc25726762", "01279d505d6692dc25726762"],
+    "notRecived": [],
+    "messages": [],
+    "isOnline": true,
+    "password": "$2a$05$3EGQLjTHF8ReDOBe75eBReJrSVjkBnRBKTuZXNT0JIAb/k5COgdXi",
+    "email": "bshmalko97@gmail.com",
+    "lastName": "shmalko",
+    "firstName": "bohdan",
+    "exitDate": 1630652309119,
+    "photo": "default.jpeg"
   }
 ]

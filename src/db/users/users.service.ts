@@ -4,6 +4,7 @@ import { ESchemasName } from '@schemas/shemas-name.enum';
 import { Model } from 'mongoose';
 import { UsersModel } from '@schemas/users.schema';
 import { UserInfoDto } from '../../auth/registration/dto/user-info.dto';
+import { RoomsModel } from '@schemas/rooms.schema';
 
 @Injectable()
 export class UsersService {
@@ -27,8 +28,19 @@ export class UsersService {
       email,
       firstName,
       lastName,
+      photo: 'default.jpeg',
     });
     return newUser.save();
+  }
+
+  public async getRoomsById(_id: string): Promise<UsersModel | null> {
+    return this.usersRepo.findById(_id, ['rooms', 'email']).populate([
+      {
+        path: 'rooms',
+        model: ESchemasName.Rooms,
+        select: ['_id'],
+      },
+    ]);
   }
 
   public async getList(
@@ -59,5 +71,24 @@ export class UsersService {
           ],
         },
       ]);
+  }
+
+  public async checkRoom(_id, roomId): Promise<UsersModel | null> {
+    return this.usersRepo.findById(_id).populate([
+      {
+        path: 'rooms',
+        model: ESchemasName.Rooms,
+        match: { _id: roomId },
+        select: ['users'],
+        populate: [
+          {
+            path: 'users',
+            model: ESchemasName.Users,
+            select: ['_id'],
+            match: { _id: { $ne: _id } },
+          },
+        ],
+      },
+    ]);
   }
 }

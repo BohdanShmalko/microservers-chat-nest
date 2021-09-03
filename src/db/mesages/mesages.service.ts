@@ -8,6 +8,21 @@ import { MessagesModel } from '@schemas/messages.schema';
 export class MesagesService {
   constructor(
     @InjectModel(ESchemasName.Messages)
-    messagesRepo: Model<MessagesModel>,
+    private messagesRepo: Model<MessagesModel>,
   ) {}
+
+  public async createNew(
+    userId: string,
+    message: string,
+    roomId: string,
+    notRecived: string[],
+  ): Promise<MessagesModel> {
+    const newMessage = new this.messagesRepo({
+      user: userId,
+      text: message,
+      notRecived,
+      room: roomId,
+    });
+    return newMessage.save();
+  }
 }

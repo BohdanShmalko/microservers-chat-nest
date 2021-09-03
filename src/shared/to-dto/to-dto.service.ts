@@ -8,6 +8,8 @@ import {
 import { UsersModel } from '@schemas/users.schema';
 import { ListResponseItemDto } from '../../chat/chat-api/chat-list/dto/list-response-item.dto';
 import { RoomsModel } from '@schemas/rooms.schema';
+import { FilesModel } from '@schemas/files.schema';
+import { MessageFileDto } from '../../chat/chat-api/chat-room/dto/message-file.dto';
 
 @Injectable()
 export class ToDtoService {
@@ -32,21 +34,6 @@ export class ToDtoService {
     });
   }
 
-  //{
-  // id: "000790505d6692dc25726762",
-  // date: 1630312110380,
-  // photo: "http://localhost:3000/images/user1.jpeg",
-  // file: {
-  // href: "http://localhost:3000/files/some.rar",
-  // name: "some.rar",
-  // size: 20000,
-  // type: "image"
-  // },
-  // status: "dispatch",
-  // text: "",
-  // type: "member"
-  // },
-
   public chatRoom(room: RoomsModel): MessageListDto[] {
     return room.messages.map((message) => {
       const isMy =
@@ -56,14 +43,7 @@ export class ToDtoService {
         type: isMy ? EMessageTypes.User : EMessageTypes.Member,
         text: message.text,
         status: EMessageStatus.Read,
-        file: message.file
-          ? {
-              type: this.fileToType(message.file.name),
-              size: message.file.size,
-              name: message.file.name,
-              href: 'http://localhost:3000/files/' + message.file.name,
-            }
-          : undefined,
+        file: this.toFile(message.file),
         photo: 'http://localhost:3000/images/' + message.user.photo,
         date: message.created,
       };
@@ -82,5 +62,15 @@ export class ToDtoService {
       if (formats[key].indexOf(format)) return key;
     }
     return EFileTypes.Any;
+  }
+
+  public toFile(file: FilesModel | null): MessageFileDto | undefined {
+    if (!file) return undefined;
+    return {
+      type: this.fileToType(file.name),
+      size: file.size,
+      name: file.name,
+      href: 'http://localhost:3000/files/' + file.name,
+    };
   }
 }
