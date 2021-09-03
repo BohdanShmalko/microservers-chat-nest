@@ -51,7 +51,7 @@ export class StudyChatGateway
     return this.studyChatService.connect(client);
   }
 
-  handleDisconnect(@ConnectedSocket() client: Socket): Promise<void> {
-    return this.studyChatService.disconnect(client);
+  handleDisconnect(): Promise<void> {
+    return this.studyChatService.disconnect();
   }
 }
