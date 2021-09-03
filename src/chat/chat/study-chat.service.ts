@@ -10,6 +10,7 @@ import { MessagesModel } from '@schemas/messages.schema';
 import { MessageResponseDto } from './dto/message-response.dto';
 import { EMessageStatus } from '@shared/to-dto/dto.enum';
 import { ToDtoService } from '@shared/to-dto/to-dto.service';
+import { CStudyChatConfig } from './study-chat.config';
 
 @Injectable()
 export class StudyChatService {
@@ -22,40 +23,87 @@ export class StudyChatService {
 
   private logger: Logger = new Logger('Chat Gateway');
 
-  public async roomMessage(
+  public async createMessage(
     wss: Server,
     client: JwtSocketType,
-    data: RoomMessageDto,
+    message: RoomMessageDto,
   ): Promise<void> {
+    if (!message.room || !message.message)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.InvalidData,
+      );
     const user = await this.usersService.checkRoom(
       client.jwtData._id,
-      data.room,
+      message.room,
     );
-    if (!user || !user.rooms.length) {
-      client.emit('error', {
-        message: EHttpExceptionMessage.InvalidRoom,
-      });
-      return;
-    }
+    if (!user || !user.rooms.length)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.InvalidRoom,
+      );
     const membersIds: string[] = user.rooms[0].users.map((user) =>
       user._id.toString(),
     );
     const newMessage: MessagesModel = await this.mesagesService.createNew(
-      user._id,
-      data.message,
-      data.room,
+      user._id.toString(),
+      message.message,
+      message.room,
       membersIds,
     );
+    await this.usersService.addMessage(membersIds, newMessage._id.toString());
     const response: MessageResponseDto = {
       date: newMessage.created,
       email: user.email,
       file: this.toDto.toFile(newMessage.file),
-      id: newMessage._id,
+      id: newMessage._id.toString(),
       photo: user.photo,
       status: EMessageStatus.Dispatch,
       text: newMessage.text,
     };
-    wss.to(data.room).emit('room', response);
+    wss.to(message.room).emit(CStudyChatConfig.client.message, response);
+    this.logger.log(`Message ${newMessage._id} created by ${user._id}`);
+  }
+
+  public async deleteMessage(
+    wss: Server,
+    client: JwtSocketType,
+    message: { id: string },
+  ): Promise<void> {
+    if (!message.id)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.InvalidData,
+      );
+    const messageData: MessagesModel | null =
+      await this.mesagesService.getForDelete(message.id, client.jwtData._id);
+    if (!messageData)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.MessageAlreadyDeleted,
+      );
+    const { user } = messageData;
+    if (!messageData.user)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.MessageAlreadyDeleted,
+      );
+    const deleteResult = await this.mesagesService.deleteById(message.id);
+    console.log(deleteResult);
+    if (!deleteResult.deletedCount)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.DeleteError,
+      );
+    const membersIds: string[] = messageData.room.users.map((user) =>
+      user._id.toString(),
+    );
+
+    await this.usersService.deleteMessage(membersIds, message.id);
+    wss
+      .to(messageData.room._id.toString())
+      .emit(CStudyChatConfig.client.deletedMessage, message.id);
+    this.logger.log(`Message ${message.id} deleted by ${user._id}`);
   }
 
   public async connect(client: JwtSocketType): Promise<void> {
@@ -69,14 +117,12 @@ export class StudyChatService {
       const userRooms = await this.usersService.getRoomsById(_id);
       if (!userRooms) throw '';
       userRooms.rooms.map((room) => client.join(room._id.toString()));
-      client.emit('connection', {
+      client.emit(CStudyChatConfig.client.connection, {
         message: 'Connection is success',
         email: userRooms.email,
       });
     } catch (e) {
-      client.emit('error', {
-        message: EHttpExceptionMessage.Unauthorized,
-      });
+      this.authService.wsError(client, EHttpExceptionMessage.Unauthorized);
     }
   }
 

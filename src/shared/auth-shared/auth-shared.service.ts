@@ -3,6 +3,8 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
+import { JwtSocketType } from '@shared/types/jwt-socket.type';
+import { CStudyChatConfig } from '../../chat/chat/study-chat.config';
 
 @Injectable()
 export class AuthSharedService {
@@ -47,5 +49,10 @@ export class AuthSharedService {
     return a1
       .filter((i) => !a2.includes(i))
       .concat(a2.filter((i) => !a1.includes(i)));
+  }
+
+  public wsError(client: JwtSocketType, message): void {
+    client.emit(CStudyChatConfig.client.error, message);
+    return;
   }
 }

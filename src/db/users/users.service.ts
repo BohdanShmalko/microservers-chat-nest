@@ -91,4 +91,32 @@ export class UsersService {
       },
     ]);
   }
+
+  public async deleteMessage(usersIds: string[], messageId: string) {
+    return this.usersRepo.updateMany(
+      { _id: { $in: usersIds } },
+      {
+        $pull: {
+          messages: messageId,
+          notRecived: messageId,
+        },
+      },
+      { multi: true },
+    );
+  }
+
+  public addMessage(members: string[], messageId) {
+    return this.usersRepo.updateMany(
+      {
+        _id: { $in: members },
+      },
+      {
+        $push: {
+          notRecived: messageId.toString(),
+          messages: messageId.toString(),
+        },
+      },
+      { multi: true },
+    );
+  }
 }

@@ -18,12 +18,30 @@
       token: document.cookie.split('=')[1]
     }
   });
+  const message = {}
   wss.on('connection', data => console.log(data));
   wss.on('error', data => console.log(data));
   wss.emit('chatToServer', 'test')
-  wss.on('room', data => console.log(data));
+
+  wss.on('message', data => {
+    message.id = data.id
+    console.log('----New message-----');
+    console.log(data);
+    console.log('--------------------');
+  });
+
+  wss.on('deletedMessage', data => {
+    console.log('----New message-----');
+    console.log(data);
+    console.log('--------------------');
+  })
+
   setTimeout(() => {
-wss.emit('sendMessage', {room: '00279d505d6692dc25726762', message: 'some message 1'})
+    wss.emit('sendMessage', {room: '00279d505d6692dc25726762', message: 'some message 1' })
+  }, 1000)
+
+  setTimeout(() => {
+    wss.emit('deleteMessage', message)
   }, 2000)
 </script>
 </html>

@@ -25,4 +25,34 @@ export class MesagesService {
     });
     return newMessage.save();
   }
+
+  public async deleteById(_id: string) {
+    return this.messagesRepo.deleteOne({ _id });
+  }
+
+  public async getForDelete(
+    messageId: string,
+    userId: string,
+  ): Promise<MessagesModel | null> {
+    return this.messagesRepo.findById(messageId).populate([
+      {
+        path: 'room',
+        model: ESchemasName.Rooms,
+        select: ['users'],
+        populate: [
+          {
+            path: 'users',
+            model: ESchemasName.Users,
+            select: ['_id'],
+          },
+        ],
+      },
+      {
+        path: 'user',
+        model: ESchemasName.Users,
+        select: ['_id'],
+        match: { _id: userId },
+      },
+    ]);
+  }
 }

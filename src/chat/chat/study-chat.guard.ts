@@ -25,9 +25,7 @@ export class StudyChatGuard implements CanActivate {
       client.jwtData = jwtData;
       return true;
     } catch (e) {
-      client.emit('error', {
-        message: EHttpExceptionMessage.Unauthorized,
-      });
+      this.authService.wsError(client, EHttpExceptionMessage.Unauthorized);
     }
   }
 }
