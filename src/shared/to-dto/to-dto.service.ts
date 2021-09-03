@@ -51,7 +51,7 @@ export class ToDtoService {
     });
   }
 
-  private static fileToType(fileName: string): string {
+  public fileToType(fileName: string): string {
     const format = fileName.split('.')[1];
     if (!format) return EFileTypes.Any;
     const formats = {
