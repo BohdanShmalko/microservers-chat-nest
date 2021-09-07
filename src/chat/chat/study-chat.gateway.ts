@@ -8,7 +8,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { UseGuards } from '@nestjs/common';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 import { ApiTags } from '@nestjs/swagger';
 
 import { StudyChatService } from './study-chat.service';
@@ -47,11 +47,19 @@ export class StudyChatGateway
     return this.studyChatService.deleteMessage(this.wss, client, message);
   }
 
-  handleConnection(@ConnectedSocket() client: JwtSocketType): Promise<void> {
-    return this.studyChatService.connect(client);
+  @SubscribeMessage(CStudyChatConfig.server.updateMessage)
+  updateMessage(
+    @ConnectedSocket() client: JwtSocketType,
+    @MessageBody() message: { id: string; text: string },
+  ): Promise<void> {
+    return this.studyChatService.updateMessage(this.wss, client, message);
   }
 
-  handleDisconnect(): Promise<void> {
-    return this.studyChatService.disconnect();
+  handleConnection(@ConnectedSocket() client: JwtSocketType): Promise<void> {
+    return this.studyChatService.connect(this.wss, client);
+  }
+
+  handleDisconnect(@ConnectedSocket() client: JwtSocketType): Promise<void> {
+    return this.studyChatService.disconnect(this.wss, client);
   }
 }

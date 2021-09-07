@@ -56,4 +56,8 @@ export class MesagesService {
       },
     ]);
   }
+
+  public async updateText(id: string, text: string) {
+    return this.messagesRepo.updateOne({ _id: id }, { text });
+  }
 }

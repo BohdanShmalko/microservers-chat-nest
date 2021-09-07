@@ -2,13 +2,17 @@ import { EStudyChatPoints } from './study-chat.enum';
 
 export const CStudyChatConfig = {
   server: {
-    sendMessage: EStudyChatPoints.SendMessage,
-    deleteMessage: EStudyChatPoints.DeleteMessage,
+    sendMessage: EStudyChatPoints.ServerSendMessage,
+    deleteMessage: EStudyChatPoints.ServerDeleteMessage,
+    updateMessage: EStudyChatPoints.ServerUpdateMessage,
   },
   client: {
-    error: EStudyChatPoints.Error,
-    message: EStudyChatPoints.Message,
-    connection: EStudyChatPoints.Connection,
-    deletedMessage: EStudyChatPoints.DeletedMessage,
+    error: EStudyChatPoints.ClientError,
+    message: EStudyChatPoints.ClientMessage,
+    connection: EStudyChatPoints.ClientConnection,
+    deleteMessage: EStudyChatPoints.ClientDeleteMessage,
+    join: EStudyChatPoints.ClientJoin,
+    leave: EStudyChatPoints.ClientLeave,
+    updateMessage: EStudyChatPoints.ClientUpdate,
   },
 };

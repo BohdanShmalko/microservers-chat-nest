@@ -1,9 +1,13 @@
 export enum EStudyChatPoints {
-  SendMessage = 'sendMessage',
-  DeleteMessage = 'deleteMessage',
+  ServerSendMessage = 'server-send-message',
+  ServerDeleteMessage = 'server-delete-message',
+  ServerUpdateMessage = 'server-update-message',
 
-  Error = 'error',
-  Message = 'message',
-  Connection = 'connection',
-  DeletedMessage = 'deletedMessage',
+  ClientError = 'client-error',
+  ClientMessage = 'client-message',
+  ClientConnection = 'client-connection',
+  ClientDeleteMessage = 'client-delete-message',
+  ClientUpdate = 'client-update-message',
+  ClientJoin = 'client-join',
+  ClientLeave = 'client-leave',
 }

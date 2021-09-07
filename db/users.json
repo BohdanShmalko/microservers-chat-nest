@@ -61,9 +61,9 @@
   },
   {
     "_id": {
-      "$oid": "6131c795d772205ae71e259e"
+      "$oid": "61279d505d6692dc25726764"
     },
-    "rooms": ["00279d505d6692dc25726762", "01279d505d6692dc25726762"],
+    "rooms": ["01279d505d6692dc25726762"],
     "notRecived": [],
     "messages": [],
     "isOnline": true,
@@ -71,6 +71,21 @@
     "email": "bshmalko97@gmail.com",
     "lastName": "shmalko",
     "firstName": "bohdan",
+    "exitDate": 1630652309119,
+    "photo": "default.jpeg"
+  },
+  {
+    "_id": {
+      "$oid": "61279d505d6692dc25726765"
+    },
+    "rooms": ["01279d505d6692dc25726762"],
+    "notRecived": [],
+    "messages": [],
+    "isOnline": true,
+    "password": "$2a$05$3EGQLjTHF8ReDOBe75eBReJrSVjkBnRBKTuZXNT0JIAb/k5COgdXi",
+    "email": "ggave197@gmail.com",
+    "lastName": "gave",
+    "firstName": "god",
     "exitDate": 1630652309119,
     "photo": "default.jpeg"
   }
