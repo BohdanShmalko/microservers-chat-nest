@@ -1,8 +1,6 @@
 [
   {
-    "_id": {
-      "$oid": "000790505d6692dc25726762"
-    },
+    "_id": "000790505d6692dc25726762",
     "text": "",
     "created": 1630312110380,
     "user": "61279d505d6692dc25726760",
@@ -14,9 +12,7 @@
     }
   },
   {
-    "_id": {
-      "$oid": "001790505d6692dc25726762"
-    },
+    "_id": "001790505d6692dc25726762",
     "text": "how are you?",
     "created": 1630312110381,
     "user": "61279d505d6692dc25726760",
@@ -24,9 +20,7 @@
     "notRecived": ["001790505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "002790505d6692dc25726762"
-    },
+    "_id": "002790505d6692dc25726762",
     "text": "hi",
     "created": 1630312110382,
     "user": "61279d505d6692dc25726761",
@@ -34,9 +28,7 @@
     "notRecived": ["102790505d6692dc25726022"]
   },
   {
-    "_id": {
-      "$oid": "003790505d6692dc25726762"
-    },
+    "_id": "003790505d6692dc25726762",
     "text": "I am cool",
     "created": 1630312110383,
     "user": "61279d505d6692dc25726762",
@@ -44,9 +36,7 @@
     "notRecived": []
   },
   {
-    "_id": {
-      "$oid": "004790505d6692dc25726762"
-    },
+    "_id": "004790505d6692dc25726762",
     "text": "I receive you some text",
     "created": 1630312110384,
     "user": "61279d505d6692dc25726762",
@@ -54,9 +44,7 @@
     "notRecived": []
   },
   {
-    "_id": {
-      "$oid": "005790505d6692dc25726762"
-    },
+    "_id": "005790505d6692dc25726762",
     "text": "ok",
     "created": 1630312110385,
     "user": "61279d505d6692dc25726763",
@@ -64,9 +52,7 @@
     "notRecived": ["61279d505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "006790505d6692dc25726762"
-    },
+    "_id": "006790505d6692dc25726762",
     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     "created": 1630312110386,
     "user": "61279d505d6692dc25726762",
@@ -74,9 +60,7 @@
     "notRecived": []
   },
   {
-    "_id": {
-      "$oid": "007690505d6692dc25726762"
-    },
+    "_id": "007690505d6692dc25726762",
     "text": "Ok, Send me file",
     "created": 1630312110387,
     "user": "61279d505d6692dc25726763",
@@ -84,9 +68,7 @@
     "notRecived": ["61279d505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "008790505d6692dc25726762"
-    },
+    "_id": "008790505d6692dc25726762",
     "text": "",
     "created": 1630312110388,
     "user": "61279d505d6692dc25726762",
