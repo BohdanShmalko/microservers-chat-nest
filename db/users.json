@@ -1,8 +1,6 @@
 [
   {
-    "_id": {
-      "$oid": "61279d505d6692dc25726760"
-    },
+    "_id": "61279d505d6692dc25726760",
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user1@gmail.com",
@@ -15,9 +13,7 @@
     "rooms": ["00279d505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "61279d505d6692dc25726761"
-    },
+    "_id": "61279d505d6692dc25726761",
     "isOnline": true,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user2@gmail.com",
@@ -30,9 +26,7 @@
     "rooms": ["00279d505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "61279d505d6692dc25726762"
-    },
+    "_id": "61279d505d6692dc25726762",
     "isOnline": true,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user3@gmail.com",
@@ -45,9 +39,7 @@
     "rooms": ["00279d505d6692dc25726762", "01279d505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "61279d505d6692dc25726763"
-    },
+    "_id": "61279d505d6692dc25726763",
     "isOnline": false,
     "password": "$2a$05$jOT8wdNvh9BYXMTQ3RpmZ.sMwj12R3jMwJIwXQfqP1Cgb3JDzSBGu",
     "email": "user4@gmail.com",
@@ -60,9 +52,7 @@
     "rooms": ["01279d505d6692dc25726762"]
   },
   {
-    "_id": {
-      "$oid": "61279d505d6692dc25726764"
-    },
+    "_id": "61279d505d6692dc25726764",
     "rooms": ["01279d505d6692dc25726762"],
     "notRecived": [],
     "messages": [],
@@ -75,9 +65,7 @@
     "photo": "default.jpeg"
   },
   {
-    "_id": {
-      "$oid": "61279d505d6692dc25726765"
-    },
+    "_id": "61279d505d6692dc25726765",
     "rooms": ["01279d505d6692dc25726762"],
     "notRecived": [],
     "messages": [],
