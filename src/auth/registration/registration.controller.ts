@@ -10,7 +10,7 @@ import {
 import { RegistrationService } from './registration.service';
 import { CheckEmailDto } from './dto/check-email.dto';
 import { UserInfoDto } from './dto/user-info.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@shared/auth-shared/jwt-auth.guard';
 import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
@@ -29,6 +29,10 @@ export class RegistrationController {
     return this.registrationService.checkEmail(checkEmailDto);
   }
 
+  @ApiHeader({
+    name: 'Authorization',
+    description: 'Your JWT token',
+  })
   @ApiOperation({ summary: 'Create new user' })
   @ApiResponse({ status: 200, type: () => TokenDto })
   @Keys('email', 'secretKey')
