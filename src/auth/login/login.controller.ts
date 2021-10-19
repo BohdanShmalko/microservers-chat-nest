@@ -6,7 +6,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { LoginService } from './login.service';
 import { LoginDataDto } from './dto/login-data.dto';
@@ -29,6 +29,10 @@ export class LoginController {
     return this.loginService.checkUser(loginDataDto);
   }
 
+  @ApiHeader({
+    name: 'Authorization',
+    description: 'Your JWT token',
+  })
   @ApiOperation({ summary: 'Login user' })
   @ApiResponse({ status: 200, type: () => TokenDto })
   @Post('secret')

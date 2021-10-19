@@ -11,10 +11,9 @@ export class AuthSharedService {
   constructor(private jwtService: JwtService) {}
 
   public async getJwtData(
-    cookies,
+    authData,
   ): Promise<{ _id: string; secretKey?: string; email?: string }> {
-    const { token } = cookies;
-    console.log(cookies);
+    const { token } = authData;
     if (!token) throw '';
     return this.jwtService.verify(token);
   }

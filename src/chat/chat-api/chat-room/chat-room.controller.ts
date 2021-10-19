@@ -6,7 +6,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ChatRoomService } from './chat-room.service';
 import { MessageParamDto } from './dto/message-param.dto';
@@ -15,6 +15,10 @@ import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 import { JwtAuthGuard } from '@shared/auth-shared/jwt-auth.guard';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
 
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Your JWT token',
+})
 @Keys('_id')
 @UseGuards(JwtAuthGuard)
 @ApiTags('chat room')
