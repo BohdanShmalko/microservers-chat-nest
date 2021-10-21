@@ -7,6 +7,7 @@ import { AuthSharedService } from '@shared/auth-shared/auth-shared.service';
 import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
 import { UsersService } from '@db/users/users.service';
 import { MesagesService } from '@db/mesages/mesages.service';
+import { RoomsService } from '@db/rooms/rooms.service';
 import { MessagesModel } from '@schemas/messages.schema';
 import { MessageResponseDto } from './dto/message-response.dto';
 import { EMessageStatus } from '@shared/to-dto/dto.enum';
@@ -20,6 +21,7 @@ export class StudyChatService {
     private authService: AuthSharedService,
     private usersService: UsersService,
     private mesagesService: MesagesService,
+    private roomsService: RoomsService,
     private toDto: ToDtoService,
   ) {}
 
@@ -54,14 +56,16 @@ export class StudyChatService {
       membersIds,
     );
     await this.usersService.addMessage(membersIds, newMessage._id.toString());
+    await this.roomsService.addMessage(message.room, newMessage._id);
     const response: MessageResponseDto = {
       date: newMessage.created,
       email: user.email,
       file: this.toDto.toFile(newMessage.file),
       id: newMessage._id.toString(),
-      photo: user.photo,
+      photo: process.env.IMAGES_URL + user.photo,
       status: EMessageStatus.Dispatch,
       text: newMessage.text,
+      room: newMessage.room._id,
     };
     wss.to(message.room).emit(CStudyChatConfig.client.message, response);
     this.logger.log(`Message ${newMessage._id} created by ${user._id}`);
