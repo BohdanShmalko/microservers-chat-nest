@@ -62,7 +62,7 @@ export class StudyChatService {
       email: user.email,
       file: this.toDto.toFile(newMessage.file),
       id: newMessage._id.toString(),
-      photo: 'http://localhost:3000/images/' + user.photo,
+      photo: process.env.IMAGES_URL + user.photo,
       status: EMessageStatus.Dispatch,
       text: newMessage.text,
       room: newMessage.room._id,

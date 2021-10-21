@@ -35,7 +35,7 @@ export class ChatRoomService {
   async getMessagesCount(
     req: JwtRequestType,
     param: MessagesCountParamDto,
-  ): Promise<any> {
+  ): Promise<number> {
     const user = await this.usersService.getById(req.jwtData._id);
     if (!user) throw new HttpException(EHttpExceptionMessage.Unauthorized, 400);
     const messages = await this.roomsService.getMessagesCount(param.id);

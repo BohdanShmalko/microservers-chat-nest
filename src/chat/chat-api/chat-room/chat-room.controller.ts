@@ -45,7 +45,7 @@ export class ChatRoomController {
   async getMessagesCount(
     @Req() req: JwtRequestType,
     @Param() params: MessagesCountParamDto,
-  ): Promise<any> {
+  ): Promise<number> {
     return  this.chatApiService.getMessagesCount(req, params);;
   }
  

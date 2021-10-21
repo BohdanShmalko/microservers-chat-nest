@@ -24,7 +24,7 @@ export class ToDtoService {
         isRoom: !!room.name,
         time: lastMessage ? lastMessage.created : 0,
         status: EMessageStatus.Dispatch,
-        photo: 'http://localhost:3000/images/' + photo,
+        photo: process.env.IMAGES_URL + photo,
         online: room.users.some((user) => user.isOnline),
         noChecked: 0,
         message: lastMessage.text,
@@ -45,7 +45,7 @@ export class ToDtoService {
         text: message.text,
         status: EMessageStatus.Read,
         file: this.toFile(message.file),
-        photo: 'http://localhost:3000/images/' + message.user.photo,
+        photo: process.env.IMAGES_URL + message.user.photo,
         date: message.created,
       };
     });
