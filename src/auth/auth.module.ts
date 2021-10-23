@@ -8,10 +8,12 @@ import { RegistrationController } from './registration/registration.controller';
 import { LoginService } from './login/login.service';
 import { LoginController } from './login/login.controller';
 import { CheckController } from './check/check.controller';
+import { FindService } from './find/find.service';
+import { FindController } from './find/find.controller';
 
 @Module({
   imports: [AuthSharedModule, UsersModule, MailModule],
-  providers: [RegistrationService, LoginService],
-  controllers: [RegistrationController, LoginController, CheckController],
+  providers: [RegistrationService, LoginService, FindService],
+  controllers: [RegistrationController, LoginController, CheckController, FindController],
 })
 export class AuthModule {}
