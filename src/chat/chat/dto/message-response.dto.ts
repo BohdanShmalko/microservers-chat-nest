@@ -56,4 +56,11 @@ export class MessageResponseDto {
     description: 'message file',
   })
   readonly file?: MessageFileDto;
+
+  @ApiProperty({
+    example: 'gfjhgfhgfhjfghgfjkl',
+    description: 'room id',
+  })
+  @IsString({ message: 'must be string' })
+  readonly room: string;
 }

@@ -7,6 +7,7 @@ import { RoomsService } from '@db/rooms/rooms.service';
 import { JwtRequestType } from '@shared/types/jwt-request.type';
 import { UsersService } from '@db/users/users.service';
 import { EHttpExceptionMessage } from '@shared/exceptions/http.exception';
+import { MessagesCountParamDto } from './dto/messages-count-param.dto';
 
 @Injectable()
 export class ChatRoomService {
@@ -29,5 +30,15 @@ export class ChatRoomService {
       howMany,
     );
     return this.toDto.chatRoom(messages);
+  }
+
+  async getMessagesCount(
+    req: JwtRequestType,
+    param: MessagesCountParamDto,
+  ): Promise<number> {
+    const user = await this.usersService.getById(req.jwtData._id);
+    if (!user) throw new HttpException(EHttpExceptionMessage.Unauthorized, 400);
+    const messages = await this.roomsService.getMessagesCount(param.id);
+    return messages ? messages.messages.length : 0;
   }
 }

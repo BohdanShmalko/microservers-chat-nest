@@ -45,4 +45,19 @@ export class RoomsService {
       },
     ]);
   }
+
+  public async getMessagesCount(roomId: string): Promise<RoomsModel | null> {
+    return this.roomsRepo.findById(roomId);
+  }
+
+  public async addMessage(roomId: string, messageId) {
+    return this.roomsRepo.updateOne(
+      { _id: roomId },
+      {
+        $push: {
+          messages: messageId.toString(),
+        },
+      },
+    );
+  }
 }
