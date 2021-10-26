@@ -14,6 +14,7 @@ import { EMessageStatus } from '@shared/to-dto/dto.enum';
 import { ToDtoService } from '@shared/to-dto/to-dto.service';
 import { CStudyChatConfig } from './study-chat.config';
 import { UsersModel } from '@schemas/users.schema';
+import { RoomDto } from './dto/room.dto';
 
 @Injectable()
 export class StudyChatService {
@@ -114,6 +115,38 @@ export class StudyChatService {
     this.logger.log(`Message ${message.id} deleted by ${messageData.user._id}`);
   }
 
+  public async createRoom(
+    wss: Server,
+    client: JwtSocketType,
+    room: RoomDto,
+  ): Promise<void> {
+    if (room.users.length < 2)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.InvalidData,
+      );
+
+    const usersId: string[] = [];
+    for (const email of room.users) {
+      const user = await this.usersService.getByEmail(email);
+      usersId.push(user._id);
+    }
+
+    const newRoom = await this.roomsService.createRoom(
+      usersId,
+      room.name,
+      room.photo,
+    );
+    await this.usersService.addRoom(usersId, newRoom._id);
+
+    wss
+      .to(room.users)
+      .emit(CStudyChatConfig.client.createRoom, {
+        message: 'Room created successfully',
+      });
+    this.logger.log(`Room ${newRoom._id} created`);
+  }
+
   public async connect(wss: Server, client: JwtSocketType): Promise<void> {
     this.logger.log('Client try to connect');
     try {
@@ -124,6 +157,12 @@ export class StudyChatService {
           .to(room._id.toString())
           .emit(CStudyChatConfig.client.join, userRooms.email);
       });
+
+      client.join(userRooms.email);
+      wss
+        .to(userRooms.email)
+        .emit(CStudyChatConfig.client.join, userRooms.email);
+
       client.emit(CStudyChatConfig.client.connection, {
         message: 'Connection is success',
         email: userRooms.email,

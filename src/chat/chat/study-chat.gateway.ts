@@ -18,6 +18,7 @@ import { Keys } from '@shared/auth-shared/middle-keys.decorator';
 import { JwtSocketType } from '@shared/types/jwt-socket.type';
 
 import { CStudyChatConfig } from './study-chat.config';
+import { RoomDto } from './dto/room.dto';
 
 @Keys('_id')
 @UseGuards(StudyChatGuard)
@@ -55,6 +56,14 @@ export class StudyChatGateway
     return this.studyChatService.updateMessage(this.wss, client, message);
   }
 
+  @SubscribeMessage(CStudyChatConfig.server.createRoom)
+  createRoom(
+    @ConnectedSocket() client: JwtSocketType,
+    @MessageBody() room: RoomDto,
+  ): Promise<void> {
+    return this.studyChatService.createRoom(this.wss, client, room);
+  }
+  
   handleConnection(@ConnectedSocket() client: JwtSocketType): Promise<void> {
     return this.studyChatService.connect(this.wss, client);
   }

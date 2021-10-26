@@ -119,4 +119,16 @@ export class UsersService {
       { multi: true },
     );
   }
+
+  public addRoom(users: string[], roomId) {
+    return this.usersRepo.updateMany(
+      { _id: { $in: users } },
+      {
+        $push: {
+          rooms: roomId.toString(),
+        },
+      },
+      { multi: true },
+    );
+  }
 }

@@ -46,6 +46,20 @@ export class RoomsService {
     ]);
   }
 
+  public async createRoom(
+    users: string[],
+    name?: string,
+    photo?: string,
+  ): Promise<RoomsModel | null> {
+    const newRoom = new this.roomsRepo({
+      users,
+      name,
+      photo: photo || (name ? 'default.jpeg' : undefined),
+      messages: [],
+    });
+    return newRoom.save();
+  }
+
   public async getMessagesCount(roomId: string): Promise<RoomsModel | null> {
     return this.roomsRepo.findById(roomId);
   }

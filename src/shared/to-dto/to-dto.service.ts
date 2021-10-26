@@ -27,7 +27,7 @@ export class ToDtoService {
         photo: process.env.IMAGES_URL + photo,
         online: room.users.some((user) => user.isOnline),
         noChecked: 0,
-        message: lastMessage.text,
+        message: lastMessage && lastMessage.text,
         name: room.name
           ? room.name
           : room.users[0].firstName + ' ' + room.users[0].lastName,
