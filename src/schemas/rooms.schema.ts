@@ -15,6 +15,9 @@ export class RoomsModel {
   @Prop({ type: String })
   photo: string;
 
+  @Prop({ type: String })
+  time: string;
+
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Messages }])
   messages: MessagesModel[];
 

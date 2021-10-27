@@ -7,6 +7,7 @@ import { UsersModule } from '@db/users/users.module';
 import { RoomsModule } from '@db/rooms/rooms.module';
 import { MesagesModule } from '@db/mesages/mesages.module';
 import { ToDtoModule } from '@shared/to-dto/to-dto.module';
+import { FilesModule } from 'files/files.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ToDtoModule } from '@shared/to-dto/to-dto.module';
     RoomsModule,
     MesagesModule,
     ToDtoModule,
+    FilesModule,
   ],
   providers: [StudyChatService, StudyChatGateway],
   exports: [StudyChatService, StudyChatGateway],

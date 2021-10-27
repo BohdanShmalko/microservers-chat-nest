@@ -56,6 +56,7 @@ export class RoomsService {
       name,
       photo: photo || (name ? 'default.jpeg' : undefined),
       messages: [],
+      time: Date.now(),
     });
     return newRoom.save();
   }
@@ -69,6 +70,17 @@ export class RoomsService {
       { _id: roomId },
       {
         $push: {
+          messages: messageId.toString(),
+        },
+      },
+    );
+  }
+
+  public async deleteMessage(roomId: string, messageId) {
+    return this.roomsRepo.updateOne(
+      { _id: roomId },
+      {
+        $pull: {
           messages: messageId.toString(),
         },
       },

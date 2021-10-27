@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsArray } from 'class-validator';
+import { FileDto } from './file.dto';
 
 export class RoomDto {
   @ApiProperty({
@@ -9,9 +10,7 @@ export class RoomDto {
   @IsArray({ message: 'must be string' })
   readonly users: string[];
 
-  @ApiProperty({ example: 'default.jpeg', description: 'Room Photo' })
-  @IsString({ message: 'must be string' })
-  readonly photo?: string;
+  readonly photo?: FileDto;
 
   @ApiProperty({ example: 'Some Name', description: 'Room Name' })
   @IsString({ message: 'must be string' })

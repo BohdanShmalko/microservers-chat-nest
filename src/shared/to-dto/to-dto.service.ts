@@ -22,7 +22,7 @@ export class ToDtoService {
       return {
         id: room._id,
         isRoom: !!room.name,
-        time: lastMessage ? lastMessage.created : 0,
+        time: lastMessage ? lastMessage.created : Number(room.time),
         status: EMessageStatus.Dispatch,
         photo: process.env.IMAGES_URL + photo,
         online: room.users.some((user) => user.isOnline),

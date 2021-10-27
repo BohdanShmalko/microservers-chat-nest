@@ -15,6 +15,7 @@ import { ToDtoService } from '@shared/to-dto/to-dto.service';
 import { CStudyChatConfig } from './study-chat.config';
 import { UsersModel } from '@schemas/users.schema';
 import { RoomDto } from './dto/room.dto';
+import { FilesService } from 'files/files.service';
 
 @Injectable()
 export class StudyChatService {
@@ -24,6 +25,7 @@ export class StudyChatService {
     private mesagesService: MesagesService,
     private roomsService: RoomsService,
     private toDto: ToDtoService,
+    private filesService: FilesService,
   ) {}
 
   private logger: Logger = new Logger('Chat Gateway');
@@ -33,7 +35,9 @@ export class StudyChatService {
     client: JwtSocketType,
     message: RoomMessageDto,
   ): Promise<void> {
-    if (!message.room || !message.message)
+    const file = message.file;
+    
+    if (!message.room || (!file && !message.message))
       return this.authService.wsError(
         client,
         EHttpExceptionMessage.InvalidData,
@@ -50,18 +54,26 @@ export class StudyChatService {
     const membersIds: string[] = user.rooms[0].users.map((user) =>
       user._id.toString(),
     );
+
+    let createdFile = null;
+    if (file) {
+      createdFile = await this.filesService.createFile(file, 'files');
+    }
+
     const newMessage: MessagesModel = await this.mesagesService.createNew(
       user._id.toString(),
-      message.message,
+      message.message || ' ',
       message.room,
       membersIds,
+      createdFile,
     );
+
     await this.usersService.addMessage(membersIds, newMessage._id.toString());
     await this.roomsService.addMessage(message.room, newMessage._id);
     const response: MessageResponseDto = {
       date: newMessage.created,
       email: user.email,
-      file: this.toDto.toFile(newMessage.file),
+      file: this.toDto.toFile(createdFile || newMessage.file),
       id: newMessage._id.toString(),
       photo: process.env.IMAGES_URL + user.photo,
       status: EMessageStatus.Dispatch,
@@ -109,6 +121,11 @@ export class StudyChatService {
     );
 
     await this.usersService.deleteMessage(membersIds, message.id);
+    await this.roomsService.deleteMessage(
+      messageData.room._id,
+      messageData._id,
+    );
+
     wss
       .to(messageData.room._id.toString())
       .emit(CStudyChatConfig.client.deleteMessage, message.id);
@@ -120,11 +137,15 @@ export class StudyChatService {
     client: JwtSocketType,
     room: RoomDto,
   ): Promise<void> {
-    if (room.users.length < 2)
-      return this.authService.wsError(
-        client,
-        EHttpExceptionMessage.InvalidData,
-      );
+    const checkLength = (arr: string[]) => {
+      if (arr.length < 2 || (arr.length > 2 && !room.name))
+        return this.authService.wsError(
+          client,
+          EHttpExceptionMessage.InvalidData,
+        );
+    };
+
+    checkLength(room.users);
 
     const usersId: string[] = [];
     for (const email of room.users) {
@@ -132,18 +153,26 @@ export class StudyChatService {
       usersId.push(user._id);
     }
 
+    checkLength(usersId);
+
+    let createdFile: {
+      name: string;
+      size: number;
+    } | null = null;
+    if (room.photo) {
+      createdFile = await this.filesService.createFile(room.photo, 'images');
+    }
+
     const newRoom = await this.roomsService.createRoom(
       usersId,
       room.name,
-      room.photo,
+      createdFile && createdFile.name,
     );
     await this.usersService.addRoom(usersId, newRoom._id);
 
-    wss
-      .to(room.users)
-      .emit(CStudyChatConfig.client.createRoom, {
-        message: 'Room created successfully',
-      });
+    wss.to(room.users).emit(CStudyChatConfig.client.createRoom, {
+      message: 'Room created successfully',
+    });
     this.logger.log(`Room ${newRoom._id} created`);
   }
 

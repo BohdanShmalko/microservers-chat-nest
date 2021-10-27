@@ -17,12 +17,14 @@ export class MesagesService {
     message: string,
     roomId: string,
     notRecived: string[],
+    file?: { name: string; size: number },
   ): Promise<MessagesModel> {
     const newMessage = new this.messagesRepo({
       user: userId,
       text: message,
       notRecived,
       room: roomId,
+      file,
     });
     return newMessage.save();
   }
