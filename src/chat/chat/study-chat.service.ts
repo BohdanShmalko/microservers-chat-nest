@@ -137,23 +137,23 @@ export class StudyChatService {
     client: JwtSocketType,
     room: RoomDto,
   ): Promise<void> {
-    const checkLength = (arr: string[]) => {
-      if (arr.length < 2 || (arr.length > 2 && !room.name))
-        return this.authService.wsError(
-          client,
-          EHttpExceptionMessage.InvalidData,
-        );
+    const checkLength = (arr: string[]): boolean => {
+      const unique = [...new Set(arr)];
+      return unique.length < 2 || (unique.length > 2 && !room.name);
     };
 
-    checkLength(room.users);
+    const invalidDataError = async () =>
+      this.authService.wsError(client, EHttpExceptionMessage.InvalidData);
+
+    if (checkLength(room.users)) return invalidDataError();
 
     const usersId: string[] = [];
     for (const email of room.users) {
       const user = await this.usersService.getByEmail(email);
-      usersId.push(user._id);
+      user && usersId.push(user._id);
     }
 
-    checkLength(usersId);
+    if (checkLength(usersId)) return invalidDataError();
 
     let createdFile: {
       name: string;
@@ -169,9 +169,13 @@ export class StudyChatService {
       createdFile && createdFile.name,
     );
     await this.usersService.addRoom(usersId, newRoom._id);
-    newRoom.users = [newRoom.users[1]];
-    const response = this.toDto.dbList([newRoom]);
-    wss.to(room.users).emit(CStudyChatConfig.client.createRoom, response[0]);
+    for (const user of newRoom.users) {
+      const tmp = newRoom.users;
+      newRoom.users = newRoom.users.filter((u) => u._id !== user._id);
+      const response = this.toDto.dbList([newRoom]);
+      wss.to(user.email).emit(CStudyChatConfig.client.createRoom, response[0]);
+      newRoom.users = tmp;
+    }
     this.logger.log(`Room ${newRoom._id} created`);
   }
 

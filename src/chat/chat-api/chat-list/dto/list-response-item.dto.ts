@@ -35,6 +35,13 @@ export class ListResponseItemDto {
   readonly message: string;
 
   @ApiProperty({
+    example: 'some.txt',
+    description: 'file name',
+  })
+  @IsString({ message: 'must be string' })
+  readonly file: string;
+
+  @ApiProperty({
     example: 23278345623479,
     description: 'created time',
   })

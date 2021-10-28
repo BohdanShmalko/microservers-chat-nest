@@ -17,7 +17,8 @@ export class ToDtoService {
   public dbList(rooms: RoomsModel[]): ListResponseItemDto[] {
     if (!rooms) return [];
     return rooms.map((room) => {
-      const lastMessage = room.messages && room.messages[room.messages.length - 1];
+      const lastMessage =
+        room.messages && room.messages[room.messages.length - 1];
       const photo = room.photo || room.users[0].photo;
       return {
         id: room._id,
@@ -28,6 +29,7 @@ export class ToDtoService {
         online: room.users.some((user) => user.isOnline),
         noChecked: 0,
         message: lastMessage && lastMessage.text,
+        file: lastMessage && lastMessage.file && lastMessage.file.name,
         name: room.name
           ? room.name
           : room.users[0].firstName + ' ' + room.users[0].lastName,
