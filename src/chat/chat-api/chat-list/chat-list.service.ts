@@ -28,6 +28,6 @@ export class ChatListService {
     const howMany: number = this.authSharedService.stringIdToInt(param.howMany);
     const start: number = this.authSharedService.stringIdToInt(param.start);
     const rooms = await this.usersService.getList(user._id, start, howMany);
-    return this.toDto.dbList(rooms);
+    return this.toDto.dbList(rooms.rooms);
   }
 }

@@ -14,10 +14,10 @@ import { MessageFileDto } from '../../chat/chat-api/chat-room/dto/message-file.d
 
 @Injectable()
 export class ToDtoService {
-  public dbList(list: UsersModel): ListResponseItemDto[] {
-    if (!list) return [];
-    return list.rooms.map((room) => {
-      const lastMessage = room.messages[room.messages.length - 1];
+  public dbList(rooms: RoomsModel[]): ListResponseItemDto[] {
+    if (!rooms) return [];
+    return rooms.map((room) => {
+      const lastMessage = room.messages && room.messages[room.messages.length - 1];
       const photo = room.photo || room.users[0].photo;
       return {
         id: room._id,

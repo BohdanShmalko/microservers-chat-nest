@@ -36,7 +36,7 @@ export class StudyChatService {
     message: RoomMessageDto,
   ): Promise<void> {
     const file = message.file;
-    
+
     if (!message.room || (!file && !message.message))
       return this.authService.wsError(
         client,
@@ -169,10 +169,9 @@ export class StudyChatService {
       createdFile && createdFile.name,
     );
     await this.usersService.addRoom(usersId, newRoom._id);
-
-    wss.to(room.users).emit(CStudyChatConfig.client.createRoom, {
-      message: 'Room created successfully',
-    });
+    newRoom.users = [newRoom.users[1]];
+    const response = this.toDto.dbList([newRoom]);
+    wss.to(room.users).emit(CStudyChatConfig.client.createRoom, response[0]);
     this.logger.log(`Room ${newRoom._id} created`);
   }
 

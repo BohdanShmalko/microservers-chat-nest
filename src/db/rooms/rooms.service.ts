@@ -58,7 +58,11 @@ export class RoomsService {
       messages: [],
       time: Date.now(),
     });
-    return newRoom.save();
+    const room = await newRoom.save();
+    return room.populate({
+      path: 'users',
+      model: ESchemasName.Users,
+    });
   }
 
   public async getMessagesCount(roomId: string): Promise<RoomsModel | null> {
