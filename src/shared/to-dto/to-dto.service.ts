@@ -14,25 +14,33 @@ import { MessageFileDto } from '../../chat/chat-api/chat-room/dto/message-file.d
 
 @Injectable()
 export class ToDtoService {
-  public dbList(rooms: RoomsModel[]): ListResponseItemDto[] {
+  public dbList(rooms: RoomsModel[], user: UsersModel): ListResponseItemDto[] {
     if (!rooms) return [];
     return rooms.map((room) => {
       const lastMessage =
         room.messages && room.messages[room.messages.length - 1];
       const photo = room.photo || room.users[0].photo;
+
+      const messages = room.messages;
+      const notReceived = messages.filter((el) =>
+        user.notRecived.includes(el._id),
+      );
+      const noChecked = notReceived.length;
+
       return {
         id: room._id,
         isRoom: !!room.name,
         time: lastMessage ? lastMessage.created : Number(room.time),
-        status: EMessageStatus.Dispatch,
+        status: room.status || EMessageStatus.Dispatch,
         photo: process.env.IMAGES_URL + photo,
         online: room.users.some((user) => user.isOnline),
-        noChecked: 0,
+        noChecked: noChecked || 0,
         message: lastMessage && lastMessage.text,
         file: lastMessage && lastMessage.file && lastMessage.file.name,
         name: room.name
           ? room.name
           : room.users[0].firstName + ' ' + room.users[0].lastName,
+        exitDate: !room.name && room.users[0].exitDate,
       };
     });
   }

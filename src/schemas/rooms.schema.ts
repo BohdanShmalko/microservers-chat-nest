@@ -18,6 +18,9 @@ export class RoomsModel {
   @Prop({ type: String })
   time: string;
 
+  @Prop({ type: String })
+  status?: string;
+
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Messages }])
   messages: MessagesModel[];
 

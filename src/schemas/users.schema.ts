@@ -34,7 +34,7 @@ export class UsersModel {
   messages: MessagesModel[];
 
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: ESchemasName.Messages }])
-  notRecived: MessagesModel[];
+  notRecived: string[];
 
   @Prop([
     {

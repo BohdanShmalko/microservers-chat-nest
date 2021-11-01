@@ -63,7 +63,31 @@ export class StudyChatGateway
   ): Promise<void> {
     return this.studyChatService.createRoom(this.wss, client, room);
   }
-  
+
+  @SubscribeMessage(CStudyChatConfig.server.startWriting)
+  startWriting(
+    @ConnectedSocket() client: JwtSocketType,
+    @MessageBody() room: { id: string },
+  ): Promise<void> {
+    return this.studyChatService.startWriting(this.wss, client, room.id);
+  }
+
+  @SubscribeMessage(CStudyChatConfig.server.stopWriting)
+  stopWriting(
+    @ConnectedSocket() client: JwtSocketType,
+    @MessageBody() room: { id: string },
+  ): Promise<void> {
+    return this.studyChatService.stopWriting(this.wss, client, room.id);
+  }
+
+  @SubscribeMessage(CStudyChatConfig.server.readMessages)
+  readMessages(
+    @ConnectedSocket() client: JwtSocketType,
+    @MessageBody() room: { id: string; messages: string[] },
+  ): Promise<void> {
+    return this.studyChatService.readMessages(this.wss, client, room);
+  }
+
   handleConnection(@ConnectedSocket() client: JwtSocketType): Promise<void> {
     return this.studyChatService.connect(this.wss, client);
   }

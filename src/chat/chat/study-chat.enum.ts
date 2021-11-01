@@ -3,6 +3,9 @@ export enum EStudyChatPoints {
   ServerDeleteMessage = 'server-delete-message',
   ServerUpdateMessage = 'server-update-message',
   ServerCreateRoom = 'server-create-room',
+  ServerStartWriting = 'server-start-writing',
+  ServerStopWriting = 'server-stop-writing',
+  ServerReadMessage = 'server-read-message',
 
   ClientError = 'client-error',
   ClientMessage = 'client-message',
@@ -12,4 +15,7 @@ export enum EStudyChatPoints {
   ClientJoin = 'client-join',
   ClientLeave = 'client-leave',
   ClientCreateRoom = 'client-create-room',
+  ClientStartWriting = 'client-start-writing',
+  ClientStopWriting = 'client-stop-writing',
+  ClientReadMessage = 'client-read-message',
 }

@@ -49,7 +49,7 @@ export class UsersService {
     howMany: number,
   ): Promise<UsersModel | null> {
     return this.usersRepo
-      .findById(id, ['isOnline', 'firstName', 'lastName', 'photo'])
+      .findById(id, ['isOnline', 'firstName', 'lastName', 'photo', 'exitDate'])
       .populate([
         {
           path: 'rooms',
@@ -130,5 +130,21 @@ export class UsersService {
       },
       { multi: true },
     );
+  }
+
+  public updateStatus(id: string, isOnline: boolean) {
+    const update: { isOnline: boolean; exitDate?: number } = { isOnline };
+    if (!isOnline) update.exitDate = Date.now();
+    return this.usersRepo.findByIdAndUpdate(id, {
+      $set: update,
+    });
+  }
+
+  public updateNotRecived(id: string, messages: string[]) {
+    return this.usersRepo.findByIdAndUpdate(id, {
+      $pull: {
+        notRecived: { $in: messages },
+      },
+    });
   }
 }

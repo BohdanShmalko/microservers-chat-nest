@@ -6,6 +6,9 @@ export const CStudyChatConfig = {
     deleteMessage: EStudyChatPoints.ServerDeleteMessage,
     updateMessage: EStudyChatPoints.ServerUpdateMessage,
     createRoom: EStudyChatPoints.ServerCreateRoom,
+    startWriting: EStudyChatPoints.ServerStartWriting,
+    stopWriting: EStudyChatPoints.ServerStopWriting,
+    readMessages: EStudyChatPoints.ServerReadMessage,
   },
   client: {
     error: EStudyChatPoints.ClientError,
@@ -16,5 +19,8 @@ export const CStudyChatConfig = {
     leave: EStudyChatPoints.ClientLeave,
     updateMessage: EStudyChatPoints.ClientUpdate,
     createRoom: EStudyChatPoints.ClientCreateRoom,
+    startWriting: EStudyChatPoints.ClientStartWriting,
+    stopWriting: EStudyChatPoints.ClientStopWriting,
+    readMessages: EStudyChatPoints.ClientReadMessage,
   },
 };

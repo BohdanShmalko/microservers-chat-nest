@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsArray } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 
 export class FileDto {
   @ApiProperty({
@@ -13,6 +13,5 @@ export class FileDto {
   @IsNumber()
   readonly size: number;
 
-  @IsArray()
   readonly buffer: string;
 }

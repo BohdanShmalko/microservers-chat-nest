@@ -172,11 +172,59 @@ export class StudyChatService {
     for (const user of newRoom.users) {
       const tmp = newRoom.users;
       newRoom.users = newRoom.users.filter((u) => u._id !== user._id);
-      const response = this.toDto.dbList([newRoom]);
+      const response = this.toDto.dbList([newRoom], user);
       wss.to(user.email).emit(CStudyChatConfig.client.createRoom, response[0]);
       newRoom.users = tmp;
     }
     this.logger.log(`Room ${newRoom._id} created`);
+  }
+
+  public async startWriting(
+    wss: Server,
+    client: JwtSocketType,
+    room: string,
+  ): Promise<void> {
+    const jwtData = await this.authService.getJwtData(client.handshake.auth);
+    wss.to(room).emit(CStudyChatConfig.client.startWriting, {
+      room,
+      user: jwtData._id,
+    });
+  }
+
+  public async stopWriting(
+    wss: Server,
+    client: JwtSocketType,
+    room: string,
+  ): Promise<void> {
+    const jwtData = await this.authService.getJwtData(client.handshake.auth);
+    wss.to(room).emit(CStudyChatConfig.client.stopWriting, {
+      room,
+      user: jwtData._id,
+    });
+  }
+
+  public async readMessages(
+    wss: Server,
+    client: JwtSocketType,
+    room: { id: string; messages: string[] },
+  ): Promise<void> {
+    const jwtData = await this.authService.getJwtData(client.handshake.auth);
+    const messages = await this.roomsService.getMessages(
+      jwtData._id,
+      room.id,
+      0,
+      0,
+    );
+
+    await this.usersService.updateNotRecived(
+      jwtData._id,
+      messages.messages.map((m) => m._id),
+    );
+    
+    wss.emit(CStudyChatConfig.client.readMessages, {
+      room: room.id,
+      user: jwtData._id,
+    });
   }
 
   public async connect(wss: Server, client: JwtSocketType): Promise<void> {
@@ -185,9 +233,10 @@ export class StudyChatService {
       const userRooms = await this.getUser(client);
       userRooms.rooms.map((room) => {
         client.join(room._id.toString());
-        wss
-          .to(room._id.toString())
-          .emit(CStudyChatConfig.client.join, userRooms.email);
+        wss.to(room._id.toString()).emit(CStudyChatConfig.client.join, {
+          room: room._id,
+          email: userRooms.email,
+        });
       });
 
       client.join(userRooms.email);
@@ -195,6 +244,7 @@ export class StudyChatService {
         .to(userRooms.email)
         .emit(CStudyChatConfig.client.join, userRooms.email);
 
+      await this.usersService.updateStatus(userRooms._id, true);
       client.emit(CStudyChatConfig.client.connection, {
         message: 'Connection is success',
         email: userRooms.email,
@@ -207,11 +257,13 @@ export class StudyChatService {
   public async disconnect(wss: Server, client: JwtSocketType): Promise<void> {
     try {
       const userRooms = await this.getUser(client);
+      await this.usersService.updateStatus(userRooms._id, false);
       userRooms.rooms.map((room) => {
         client.leave(room._id.toString());
-        wss
-          .to(room._id.toString())
-          .emit(CStudyChatConfig.client.leave, userRooms.email);
+        wss.to(room._id.toString()).emit(CStudyChatConfig.client.leave, {
+          room: room._id,
+          email: userRooms.email,
+        });
       });
     } catch (e) {
       this.logger.log('Disconnect error', e);

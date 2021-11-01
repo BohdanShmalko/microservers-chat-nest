@@ -68,4 +68,11 @@ export class ListResponseItemDto {
   })
   @IsString({ message: 'must be string' })
   readonly status: string;
+
+  @ApiProperty({
+    example: 23278345623479,
+    description: 'exit date',
+  })
+  @IsNumber({}, { message: 'must be number' })
+  readonly exitDate: number;
 }

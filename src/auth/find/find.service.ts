@@ -14,8 +14,9 @@ export class FindService {
     const { _id } = req.jwtData;
     const user: UsersModel = await this.usersService.getById(_id);
     if (!user) throw new HttpException(EHttpExceptionMessage.Unauthorized, 400);
-  
+
     return {
+      id: _id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
