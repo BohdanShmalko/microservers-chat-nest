@@ -9,6 +9,8 @@ export const CStudyChatConfig = {
     startWriting: EStudyChatPoints.ServerStartWriting,
     stopWriting: EStudyChatPoints.ServerStopWriting,
     readMessages: EStudyChatPoints.ServerReadMessage,
+    joinRoom: EStudyChatPoints.ServerJoinRoom,
+    deleteRoom: EStudyChatPoints.ServerDeleteRoom,
   },
   client: {
     error: EStudyChatPoints.ClientError,
@@ -22,5 +24,6 @@ export const CStudyChatConfig = {
     startWriting: EStudyChatPoints.ClientStartWriting,
     stopWriting: EStudyChatPoints.ClientStopWriting,
     readMessages: EStudyChatPoints.ClientReadMessage,
+    deleteRoom: EStudyChatPoints.ClientDeleteRoom,
   },
 };

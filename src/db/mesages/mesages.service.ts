@@ -33,6 +33,10 @@ export class MesagesService {
     return this.messagesRepo.deleteOne({ _id });
   }
 
+  public async deleteAllInRoom(messages: string[]) {
+    return this.messagesRepo.deleteMany({ _id: { $in: messages } });
+  }
+
   public async getForDelete(
     messageId: string,
     userId: string,

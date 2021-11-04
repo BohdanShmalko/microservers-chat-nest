@@ -132,6 +132,18 @@ export class UsersService {
     );
   }
 
+  public removeRoom(roomId: string) {
+    return this.usersRepo.updateMany(
+      { rooms: { $all: [roomId] } },
+      {
+        $pull: {
+          rooms: roomId,
+        },
+      },
+      { multi: true },
+    );
+  }
+
   public updateStatus(id: string, isOnline: boolean) {
     const update: { isOnline: boolean; exitDate?: number } = { isOnline };
     if (!isOnline) update.exitDate = Date.now();

@@ -65,6 +65,10 @@ export class RoomsService {
     });
   }
 
+  public async deleteRoom(room: string) {
+    return this.roomsRepo.findByIdAndDelete(room);
+  }
+
   public async getMessagesCount(roomId: string): Promise<RoomsModel | null> {
     return this.roomsRepo.findById(roomId);
   }

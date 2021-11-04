@@ -64,6 +64,14 @@ export class StudyChatGateway
     return this.studyChatService.createRoom(this.wss, client, room);
   }
 
+  @SubscribeMessage(CStudyChatConfig.server.deleteRoom)
+  deleteRoom(
+    @ConnectedSocket() client: JwtSocketType,
+    @MessageBody() room: string,
+  ): Promise<void> {
+    return this.studyChatService.deleteRoom(this.wss, client, room);
+  }
+
   @SubscribeMessage(CStudyChatConfig.server.startWriting)
   startWriting(
     @ConnectedSocket() client: JwtSocketType,
@@ -83,7 +91,7 @@ export class StudyChatGateway
   @SubscribeMessage(CStudyChatConfig.server.readMessages)
   readMessages(
     @ConnectedSocket() client: JwtSocketType,
-    @MessageBody() room: { id: string; messages: string[] },
+    @MessageBody() room: { id: string },
   ): Promise<void> {
     return this.studyChatService.readMessages(this.wss, client, room);
   }
@@ -94,5 +102,10 @@ export class StudyChatGateway
 
   handleDisconnect(@ConnectedSocket() client: JwtSocketType): Promise<void> {
     return this.studyChatService.disconnect(this.wss, client);
+  }
+
+  @SubscribeMessage(CStudyChatConfig.server.joinRoom)
+  handleRoomJoin(client: JwtSocketType, room: string) {
+    client.join(room);
   }
 }

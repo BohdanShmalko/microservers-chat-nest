@@ -179,6 +179,22 @@ export class StudyChatService {
     this.logger.log(`Room ${newRoom._id} created`);
   }
 
+  public async deleteRoom(wss: Server, client: JwtSocketType, roomId: string) {
+    const room = (await this.roomsService.getByIds([{ id: roomId }]))[0];
+    if (!room)
+      return this.authService.wsError(
+        client,
+        EHttpExceptionMessage.DeleteError,
+      );
+
+    await this.usersService.removeRoom(roomId);
+    await this.mesagesService.deleteAllInRoom(
+      room.messages.map((message) => message._id),
+    );
+    await this.roomsService.deleteRoom(roomId);
+    wss.to(roomId).emit(CStudyChatConfig.client.deleteRoom, roomId);
+  }
+
   public async startWriting(
     wss: Server,
     client: JwtSocketType,
@@ -206,7 +222,7 @@ export class StudyChatService {
   public async readMessages(
     wss: Server,
     client: JwtSocketType,
-    room: { id: string; messages: string[] },
+    room: { id: string },
   ): Promise<void> {
     const jwtData = await this.authService.getJwtData(client.handshake.auth);
     const messages = await this.roomsService.getMessages(
@@ -220,7 +236,7 @@ export class StudyChatService {
       jwtData._id,
       messages.messages.map((m) => m._id),
     );
-    
+
     wss.emit(CStudyChatConfig.client.readMessages, {
       room: room.id,
       user: jwtData._id,
